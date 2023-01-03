@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="116.0" prefWidth="245.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controller.DeleteConfirmationWindowController">
+    <children>
+        <Label layoutX="56.0" layoutY="14.0" text="Delete This Movie?">
+            <font>
+                <Font name="System Bold" size="14.0" />
+            </font>
+        </Label>
+        <Line endX="122.0" layoutX="123.0" layoutY="42.0" startX="-123.0" />
+        <Button fx:id="deleteConfirmButton" layoutX="56.0" layoutY="58.0" mnemonicParsing="false" onAction="#deleteConfirm" prefHeight="25.0" prefWidth="50.0" text="Yes" />
+      <Button fx:id="deleteCancelButton" layoutX="131.0" layoutY="58.0" mnemonicParsing="false" onAction="#deleteCancel" prefHeight="25.0" prefWidth="50.0" text="No" />
+    </children>
+</AnchorPane>
