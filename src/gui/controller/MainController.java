@@ -46,7 +46,7 @@ public class MainController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resource){
-
+        /**
         // SQL Query - Executed in the database.
         String moviesViewQuery = "SELECT MovieID, MovieTitle, MovieCategory, ratingIMDB, MyRating, LastView FROM MOVIE";
         DatabaseConnector connectNow = new DatabaseConnector();
@@ -84,7 +84,7 @@ public class MainController implements Initializable {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
+        **/
 
 
     }
