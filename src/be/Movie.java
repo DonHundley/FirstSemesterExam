@@ -1,70 +1,80 @@
 package be;
 
+import java.util.Date;
+
 public class Movie {
-    int movieID;
-    String title;
-    String category;
-    double ratingIMDB;
-    double myRating;
-    int lastView;
+    private int id;
+    private String name;
+    private float rating;
+    private String fileLink;
+    private Date lastView;
+    private float IMDBRating;
 
-    public Movie(Integer movieID, String title, String category, double ratingIMDB, double myRating, int lastView) {
-        this.movieID = movieID;
-        this.title = title;
-        this.category = category;
-        this.ratingIMDB = ratingIMDB;
-        this.myRating = myRating;
+    public Movie(String name, float rating, String fileLink, Date lastView, float IMDBRating) {
+        this.name = name;
+        this.rating = rating;
+        this.fileLink = fileLink;
         this.lastView = lastView;
+        this.IMDBRating = IMDBRating;
     }
 
-    public Movie() {
+    public Movie(int id, String name, float rating, String fileLink, Date lastView, float IMDBRating) {
+        this(name, rating, fileLink,lastView, IMDBRating);
+        this.id = id;
+    }
+    public String getName() {
+        return name;
     }
 
-    public int getMovieID() {
-        return movieID;
+
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getTitle() {
-        return title;
+    public float getRating() {
+        return rating;
     }
 
-    public String getCategory() {
-        return category;
+    public void setRating(float rating) {
+        this.rating = rating;
     }
 
-    public double getRatingIMDB() {
-        return ratingIMDB;
+
+    public String getFileLink() {
+        return fileLink;
     }
 
-    public double getMyRating() {
-        return myRating;
+    public void setFileLink(String fileLink) {
+        this.fileLink = fileLink;
     }
 
-    public int getLastView() {
+    public Date getLastView() {
         return lastView;
     }
 
-    public void setMovieID(int movieID) {
-        this.movieID = movieID;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
-
-    public void setRatingIMDB(double ratingIMDB) {
-        this.ratingIMDB = ratingIMDB;
-    }
-
-    public void setMyRating(double myRating) {
-        this.myRating = myRating;
-    }
-
-    public void setLastView(int lastView) {
+    public void setLastView(Date lastView) {
         this.lastView = lastView;
     }
-}
+
+    public float getIMDBRating() {
+        return IMDBRating;
+    }
+
+    public void setIMDBRating(float IMDBRating) {
+        this.IMDBRating = IMDBRating;
+    }
+
+    @Override
+    public String toString() {
+        return "Movie{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", rating='" + rating + '\'' +
+                ", fileLink='" + fileLink + '\'' +
+                ", lastView='" + lastView + '\'' +
+                ", IMDBRating='" + IMDBRating + '\'' +
+                '}';
+
+    }
+
+    }

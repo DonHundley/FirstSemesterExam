@@ -103,7 +103,9 @@ public class NewMovieWindowController implements Initializable {
      */
     public void newMovieSave(ActionEvent actionEvent) {
         if ((Integer.parseInt(ratingIMDBTextField.getText()) > 0 && Integer.parseInt(ratingIMDBTextField.getText()) <= 10) && (movieTitleTextfield.getText().length() > 0)) {
-            model.addMovie(movieTitleTextfield.getText(), categoryCombobox.getPromptText(), Integer.parseInt(ratingIMDBTextField.getText()), Integer.parseInt(myRatingTextField.getText()));
+
+            //model.addMovie(movieTitleTextfield.getText(), Integer.parseInt(ratingIMDBTextField.getText()));
+
         }
         movieTitleTextfield.clear();
         categoryCombobox.cancelEdit();
