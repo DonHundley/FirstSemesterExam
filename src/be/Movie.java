@@ -26,6 +26,7 @@ public class Movie {
         return name;
     }
 
+
     public void setName(String name) {
         this.name = name;
     }
@@ -37,6 +38,7 @@ public class Movie {
     public void setRating(float rating) {
         this.rating = rating;
     }
+
 
     public String getFileLink() {
         return fileLink;

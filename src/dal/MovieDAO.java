@@ -73,5 +73,6 @@ public class MovieDAO {
             throw new RuntimeException(e);
         }
         return allMovies;
+
     }
 }

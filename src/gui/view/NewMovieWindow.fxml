@@ -8,7 +8,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="197.0" prefWidth="505.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controller.NewMovieWindowController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="330.0" prefWidth="505.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controller.NewMovieWindowController">
    <children>
       <Label layoutX="202.0" layoutY="13.0" prefHeight="27.0" prefWidth="101.0" text="New Movie" textAlignment="CENTER">
          <font>
@@ -16,26 +16,35 @@
          </font>
       </Label>
       <Line endX="504.99993896484375" endY="40.0" startY="40.0" />
-      <Label layoutX="29.0" layoutY="99.0" text="Category:">
+      <Label layoutX="24.0" layoutY="110.0" text="Category:">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
-      <TextField fx:id="movieTitleTextfield" layoutX="128.0" layoutY="61.0" prefHeight="25.0" prefWidth="359.0" promptText="Enter Movie Title" />
-      <Label layoutX="29.0" layoutY="64.0" text="Movie Title:">
+      <TextField fx:id="movieTitleTextfield" layoutX="123.0" layoutY="72.0" prefHeight="25.0" prefWidth="359.0" promptText="Enter Movie Title" />
+      <Label layoutX="24.0" layoutY="75.0" text="Movie Title:">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
-      <ComboBox fx:id="categoryCombobox" layoutX="127.0" layoutY="97.0" prefWidth="150.0" />
-      <Button fx:id="addCategoryButton" layoutX="289.0" layoutY="97.0" mnemonicParsing="false" onAction="#createNewCategory" text="More..." />
-      <Label layoutX="29.0" layoutY="134.0" text="IMDB Rating:">
+      <ComboBox fx:id="categoryCombobox" layoutX="122.0" layoutY="108.0" prefWidth="150.0" />
+      <Label layoutX="24.0" layoutY="145.0" text="IMDB Rating:">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
-      <TextField fx:id="ratingIMDBTextField" layoutX="128.0" layoutY="132.0" prefHeight="25.0" prefWidth="38.0" promptText="#" />
-      <Button fx:id="newMovieSaveButton" layoutX="379.0" layoutY="157.0" mnemonicParsing="false" onAction="#newMovieSave" text="Save" />
-      <Button fx:id="newMovieCancelButton" layoutX="435.0" layoutY="157.0" mnemonicParsing="false" onAction="#newMovieCancel" text="Cancel" />
+      <TextField fx:id="ratingIMDBTextField" layoutX="123.0" layoutY="143.0" prefHeight="25.0" prefWidth="38.0" promptText="#" />
+      <Button fx:id="newMovieSaveButton" layoutX="355.0" layoutY="282.0" mnemonicParsing="false" onAction="#newMovieSave" prefHeight="26.0" prefWidth="51.0" text="Save" />
+      <Button fx:id="newMovieCancelButton" layoutX="421.0" layoutY="282.0" mnemonicParsing="false" onAction="#newMovieCancel" text="Cancel" />
+      <Label layoutX="24.0" layoutY="179.0" text="My Rating:">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="myRatingTextField" layoutX="123.0" layoutY="177.0" prefHeight="25.0" prefWidth="38.0" promptText="#" />
+      <Button layoutX="404.0" layoutY="221.0" mnemonicParsing="false" onAction="#chooseFile" text="Choose File..." />
+      <TextField fx:id="fileInput" layoutX="22.0" layoutY="221.0" prefHeight="26.0" prefWidth="359.0" />
+      <TextField fx:id="categoryTextField" layoutX="281.0" layoutY="108.0" promptText="Add New Category" />
+      <Button layoutX="437.0" layoutY="108.0" mnemonicParsing="false" onAction="#AddNewCategory" text="Add" />
    </children>
 </AnchorPane>
