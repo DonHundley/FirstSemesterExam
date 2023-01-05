@@ -17,6 +17,9 @@ public class Movie {
         this.lastView = lastView;
     }
 
+    public Movie() {
+    }
+
     public Integer getMovieID() {
         return movieID;
     }
