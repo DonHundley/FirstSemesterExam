@@ -22,9 +22,9 @@ public class Model {
 
 
 
-    public Movie addMovie(String title, String category, int ratingIMDB) {
+    public Movie addMovie(String title, String category, double ratingIMDB, double myRating) {
 
-        Movie movie = bll.addMovie(title, category, ratingIMDB);
+        Movie movie = bll.addMovie(title, category, ratingIMDB,myRating);
         movies.add(movie);
         return movie;
     }

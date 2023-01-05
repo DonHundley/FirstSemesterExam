@@ -1,14 +1,14 @@
 package be;
 
 public class Movie {
-    Integer movieID;
+    int movieID;
     String title;
     String category;
-    Integer ratingIMDB;
-    Integer myRating;
-    Integer lastView;
+    double ratingIMDB;
+    double myRating;
+    int lastView;
 
-    public Movie(Integer movieID, String title, String category, Integer ratingIMDB, Integer myRating, Integer lastView) {
+    public Movie(Integer movieID, String title, String category, double ratingIMDB, double myRating, int lastView) {
         this.movieID = movieID;
         this.title = title;
         this.category = category;
@@ -20,7 +20,7 @@ public class Movie {
     public Movie() {
     }
 
-    public Integer getMovieID() {
+    public int getMovieID() {
         return movieID;
     }
 
@@ -32,19 +32,19 @@ public class Movie {
         return category;
     }
 
-    public Integer getRatingIMDB() {
+    public double getRatingIMDB() {
         return ratingIMDB;
     }
 
-    public Integer getMyRating() {
+    public double getMyRating() {
         return myRating;
     }
 
-    public Integer getLastView() {
+    public int getLastView() {
         return lastView;
     }
 
-    public void setMovieID(Integer movieID) {
+    public void setMovieID(int movieID) {
         this.movieID = movieID;
     }
 
@@ -56,15 +56,15 @@ public class Movie {
         this.category = category;
     }
 
-    public void setRatingIMDB(Integer ratingIMDB) {
+    public void setRatingIMDB(double ratingIMDB) {
         this.ratingIMDB = ratingIMDB;
     }
 
-    public void setMyRating(Integer myRating) {
+    public void setMyRating(double myRating) {
         this.myRating = myRating;
     }
 
-    public void setLastView(Integer lastView) {
+    public void setLastView(int lastView) {
         this.lastView = lastView;
     }
 }
