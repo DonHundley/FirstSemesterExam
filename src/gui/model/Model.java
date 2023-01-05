@@ -2,8 +2,11 @@ package gui.model;
 
 import be.Movie;
 import bll.LogicManager;
+import com.microsoft.sqlserver.jdbc.SQLServerException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+
+import java.util.Date;
 
 public class Model {
     private ObservableList<Movie> movies;
@@ -22,9 +25,8 @@ public class Model {
 
 
 
-    public Movie addMovie(String title, String category, int ratingIMDB) {
-
-        Movie movie = bll.addMovie(title, category, ratingIMDB);
+    public Movie addMovie(String name, float rating, String fileLink, Date lastView, float IMDBRating) throws SQLServerException {
+        Movie movie = bll.addMovie(name, rating, fileLink, lastView, IMDBRating);
         movies.add(movie);
         return movie;
     }

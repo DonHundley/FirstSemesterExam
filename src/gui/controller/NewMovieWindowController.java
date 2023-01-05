@@ -32,7 +32,7 @@ public class NewMovieWindowController {
      * when save button is pressed, takes input values and uses them as parameters in the add movie method. First checks that rating is a valid number and title is not empty. other checks might be added*/
     public void newMovieSave(ActionEvent actionEvent) {
         if ((Integer.parseInt(ratingIMDBTextField.getText()) > 0 && Integer.parseInt(ratingIMDBTextField.getText()) <= 10) && (movieTitleTextfield.getText().length() > 0)) {
-            model.addMovie(movieTitleTextfield.getText(), categoryCombobox.getPromptText(), Integer.parseInt(ratingIMDBTextField.getText()));
+            //model.addMovie(movieTitleTextfield.getText(), Integer.parseInt(ratingIMDBTextField.getText()));
         }
         movieTitleTextfield.clear();
         categoryCombobox.cancelEdit();
