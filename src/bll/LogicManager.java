@@ -12,9 +12,9 @@ public class LogicManager {
 
 
     public Movie addMovie(String name, float rating, String fileLink, Date lastView, float IMDBRating) throws SQLServerException {
-        return movieDAO.addMovie(name, rating, fileLink, lastView, IMDBRating);
-
-    }
+        return movieDAO.addMovie(name, rating, fileLink, lastView, IMDBRating);}
+    public List<Movie> getAllMovies() {return movieDAO.getAllMovies();}
 
 
 }
+

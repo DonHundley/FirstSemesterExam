@@ -9,20 +9,23 @@ import javafx.collections.ObservableList;
 import java.util.Date;
 
 public class Model {
-    private ObservableList<Movie> movies;
+
+
+
+    private final ObservableList<Movie> movies = FXCollections.observableArrayList();;
     private LogicManager bll = new LogicManager();
 
 
-
-    public Model() {
-        movies = FXCollections.observableArrayList();
-    }
-    public ObservableList<Movie> getMovies() {
+    public ObservableList<Movie> getObsMovies() {
         return movies;
     }
 
 
-
+    public void loadMovieList()
+    {
+        movies.clear();
+        movies.addAll(bll.getAllMovies());
+    }
 
 
     public Movie addMovie(String name, float rating, String fileLink, Date lastView, float IMDBRating) throws SQLServerException {

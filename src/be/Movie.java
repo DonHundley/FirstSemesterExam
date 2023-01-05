@@ -3,6 +3,7 @@ package be;
 import java.util.Date;
 
 public class Movie {
+
     private int id;
     private String name;
     private float rating;
@@ -51,7 +52,7 @@ public class Movie {
     public Date getLastView() {
         return lastView;
     }
-
+    public int getId() {return id;}
     public void setLastView(Date lastView) {
         this.lastView = lastView;
     }
