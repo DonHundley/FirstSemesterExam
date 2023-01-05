@@ -26,14 +26,17 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class NewMovieWindowController implements Initializable {
-    public TextField movieTitleTextfield, myRatingTextField, fileInput,categoryTextField;
-
+    @FXML
+    private TextField movieTitleTextfield, myRatingTextField, fileInput, categoryTextField;
     @FXML
     private ComboBox categoryCombobox;
 
-    public TextField ratingIMDBTextField;
-    public Button newMovieSaveButton;
-    public Button newMovieCancelButton;
+    @FXML
+    private TextField ratingIMDBTextField;
+    @FXML
+    private Button newMovieSaveButton;
+    @FXML
+    private Button newMovieCancelButton;
 
     private String[] categories = {"ACTION", "ADVENTURE", "DRAMA", "HORROR"};
 
@@ -47,7 +50,8 @@ public class NewMovieWindowController implements Initializable {
     }
 
     /**
-     * method to add categories to the combobox*/
+     * method to add categories to the combobox
+     */
 
     public void selectCategory() {
         for (String category : categories) {
@@ -56,16 +60,18 @@ public class NewMovieWindowController implements Initializable {
         }
     }
 
-/**
- * method that add a new category to the combobox when the add button is pressed
- * It checks that the input category doesn't already exist, that the input is not empty and converts it to uppercase*/
+    /**
+     * method that add a new category to the combobox when the add button is pressed
+     * It checks that the input category doesn't already exist, that the input is not empty and converts it to uppercase
+     */
     public void AddNewCategory(ActionEvent actionEvent) {
-        String value=categoryTextField.getText();
-        List c= Arrays.asList(categories);
-        if(!(c.contains(value.toUpperCase())) && value.length()>0) {
+        String value = categoryTextField.getText();
+        List c = Arrays.asList(categories);
+        if (!(c.contains(value.toUpperCase())) && value.length() > 0) {
             categoryCombobox.getItems().add(value.toUpperCase());
-            categoryTextField.clear();
-        }}
+        }
+        categoryTextField.clear();
+    }
 
     /**
      * Method to open file explorer and choose a movie file
