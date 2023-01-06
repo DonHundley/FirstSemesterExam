@@ -170,33 +170,20 @@ public class MainController implements Initializable {
             alert.close();
         }
     }
-
-    public void addZoomMI(ActionEvent actionEvent) {
-        webView.setZoom(webView.getZoom() + 0.25);
-    }
-
-    public void subZoomMI(ActionEvent actionEvent) {
-        webView.setZoom(webView.getZoom() - 0.25);
-    }
-
-    public void movieSearchMI(ActionEvent actionEvent) {
-        engine.load("https://www.allmovie.com/search/all/"+movieInfoTextField.getText());
-    }
-
-    public void homeMI(ActionEvent actionEvent) {
-        engine.load("https://www.allmovie.com");
-    }
-
-    public void refreshMI(ActionEvent actionEvent) {
-        engine.reload();
-    }
-
-    public void forwardMI(ActionEvent actionEvent) {
-        engine.getHistory().go(1);
-    }
-
-    public void backMI(ActionEvent actionEvent) {
-        engine.getHistory().go(-1);
-    }
+    
+    @FXML
+    private void addZoomMI(ActionEvent actionEvent) {webView.setZoom(webView.getZoom() + 0.25);}
+    @FXML
+    private void subZoomMI(ActionEvent actionEvent) {webView.setZoom(webView.getZoom() - 0.25);}
+    @FXML
+    private void movieSearchMI(ActionEvent actionEvent) {engine.load("https://www.allmovie.com/search/all/"+movieInfoTextField.getText());}
+    @FXML
+    private void homeMI(ActionEvent actionEvent) {engine.load("https://www.allmovie.com");}
+    @FXML
+    private void refreshMI(ActionEvent actionEvent) {engine.reload();}
+    @FXML
+    private void forwardMI(ActionEvent actionEvent) {engine.getHistory().go(1);}
+    @FXML
+    private void backMI(ActionEvent actionEvent) {engine.getHistory().go(-1);}
 
 }
