@@ -6,6 +6,8 @@ import dal.DatabaseConnector;
 import gui.model.Model;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -25,13 +27,20 @@ public class MainController implements Initializable {
 
     public Button addMovieButton;
     public Button deleteMovieButton;
-    public TableColumn<Movie, Integer> columnID;
-    public TableColumn<Movie, String> columnTitle;
-    public TableColumn<Movie, Float> columnRating;
-    public TableColumn<Movie, String> columnFile;
-    public TableColumn<Movie, Date> columnLastView;
-    public TableColumn<Movie, Float> columnIMDBRating;
-    public TableView movieTV;
+    @FXML
+    private TableColumn<Movie, Integer> columnID;
+    @FXML
+    private TableColumn<Movie, String> columnTitle;
+    @FXML
+    private TableColumn<Movie, Float> columnRating;
+    @FXML
+    private TableColumn<Movie, String> columnFile;
+    @FXML
+    private TableColumn<Movie, Date> columnLastView;
+    @FXML
+    private TableColumn<Movie, Float> columnIMDBRating;
+    @FXML
+    private TableView<Movie> movieTV;
 
 
 
@@ -55,8 +64,33 @@ public class MainController implements Initializable {
         columnIMDBRating.setCellValueFactory(new PropertyValueFactory<>("IMDBRating"));
 
 
+        FilteredList<Movie> filteredData = new FilteredList<>(model.getObsMovies(), b -> true);
 
+        filterTextField.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredData.setPredicate(Movie -> {
 
+                // If there is no search value then it will continue to display as normal.
+                if (newValue.isEmpty() || newValue.isBlank()) {
+                    return true;
+                }
+
+                String searchKeyword = newValue.toLowerCase();
+
+                if (Movie.getName().toLowerCase().contains(searchKeyword)) {
+                    return true; //This means we found a matching title.
+                } else
+                    return false;
+            });
+
+        });
+
+        SortedList<Movie> sortedData = new SortedList<>(filteredData);
+
+        // Bind sorted result to Tableview.
+        sortedData.comparatorProperty().bind(movieTV.comparatorProperty());
+
+        // Apply filtered and sorted data to the Tableview.
+        movieTV.setItems(sortedData);
     }
 
     /**
