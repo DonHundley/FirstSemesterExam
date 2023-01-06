@@ -32,7 +32,7 @@ public class MainController implements Initializable {
     public TableColumn<Movie, String> columnFile;
     public TableColumn<Movie, Date> columnLastView;
     public TableColumn<Movie, Float> columnIMDBRating;
-    public TableView movieTV;
+    public TableView<Movie> movieTV;
 
 
 
@@ -78,7 +78,8 @@ public class MainController implements Initializable {
     /**
      * Method opens a confirmation window to confirm to delete the selected movie*/
     public void openDeleteConfirmationWindow(ActionEvent actionEvent) throws IOException {
-        //int selectedMovieID = movieTV.getSelectionModel().getSelectedItem().;
+        int selectedMovieID = movieTV.getSelectionModel().getSelectedItem().getId();
+        System.out.print(selectedMovieID);
         Movie selectedMovie = (Movie) movieTV.getSelectionModel().getSelectedItem();
 
         Alert alert=new Alert(Alert.AlertType.CONFIRMATION);
