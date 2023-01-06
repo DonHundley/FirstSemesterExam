@@ -6,29 +6,45 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.web.WebView?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="651.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controller.MainController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="651.0" prefWidth="1191.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controller.MainController">
    <children>
 
-      <Label layoutX="24.0" layoutY="31.0" prefHeight="24.0" prefWidth="95.0" text="Search">
+      <Label layoutX="24.0" layoutY="31.0" prefHeight="24.0" prefWidth="95.0" text="Search:">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
-      <TextField fx:id="filterTextField" layoutX="81.0" layoutY="30.0" prefHeight="26.0" prefWidth="979.0" promptText="Enter Title, Rating, or Category..." />
-      <Button fx:id="addMovieButton" layoutX="874.0" layoutY="607.0" mnemonicParsing="false" onAction="#openNewMovieWindow" text="Add Movie" />
-      <Button fx:id="deleteMovieButton" layoutX="967.0" layoutY="607.0" mnemonicParsing="false" onAction="#openDeleteConfirmationWindow" text="Delete Movie" />
+      <TextField fx:id="filterTextField" layoutX="81.0" layoutY="30.0" prefHeight="26.0" prefWidth="204.0" promptText="Enter Title, Rating, or Category..." />
+      <Button fx:id="addMovieButton" layoutX="299.0" layoutY="607.0" mnemonicParsing="false" onAction="#openNewMovieWindow" text="Add Movie" />
+      <Button fx:id="deleteMovieButton" layoutX="385.0" layoutY="607.0" mnemonicParsing="false" onAction="#openDeleteConfirmationWindow" text="Delete Movie" />
       <Button layoutX="30.0" layoutY="607.0" mnemonicParsing="false" text="Rate Movie!" />
-      <TableView fx:id="movieTV" layoutX="81.0" layoutY="70.0" prefHeight="522.0" prefWidth="979.0">
+      <TableView fx:id="movieTV" layoutX="5.0" layoutY="70.0" prefHeight="534.0" prefWidth="480.0">
         <columns>
           <TableColumn fx:id="columnID" prefWidth="36.0" text="#" />
-          <TableColumn fx:id="columnTitle" prefWidth="280.0" text="Title" />
-            <TableColumn fx:id="columnRating" prefWidth="47.0" text="Rating" />
-            <TableColumn fx:id="columnFile" minWidth="9.0" prefWidth="371.0" text="File location" />
-            <TableColumn fx:id="columnLastView" prefWidth="141.0" text="Last View" />
-            <TableColumn fx:id="columnIMDBRating" prefWidth="85.0" text="IMDB Rating" />
+          <TableColumn fx:id="columnTitle" prefWidth="127.0" text="Title" />
+            <TableColumn fx:id="columnRating" text="My Rating" />
+            <TableColumn fx:id="columnIMDBRating" prefWidth="94.0" text="IMDB Rating" />
+            <TableColumn fx:id="columnLastView" prefWidth="142.0" text="Last View" />
         </columns>
       </TableView>
+      <WebView fx:id="webView" layoutX="508.0" layoutY="69.0" prefHeight="534.0" prefWidth="676.0" />
+      <Label layoutX="779.0" layoutY="31.0" prefHeight="24.0" prefWidth="127.0" text="Movie Information" textAlignment="CENTER">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="movieInfoTextField" layoutX="508.0" layoutY="30.0" promptText="Movie Title" />
+      <Button fx:id="addZoomMIButton" layoutX="779.0" layoutY="607.0" mnemonicParsing="false" onAction="#addZoomMI" text="+ Zoom" />
+      <Button fx:id="subZoomMIButton" layoutX="850.0" layoutY="607.0" mnemonicParsing="false" onAction="#subZoomMI" text="- Zoom" />
+      <Button fx:id="movieSearchMIButton" layoutX="666.0" layoutY="28.0" minWidth="41.0" mnemonicParsing="false" onAction="#movieSearchMI" prefHeight="30.0" prefWidth="63.0" text="Search" />
+      <Button fx:id="homeMIButton" layoutX="508.0" layoutY="607.0" mnemonicParsing="false" onAction="#homeMI" text="Home" />
+      <Button fx:id="refreshMIButton" layoutX="572.0" layoutY="607.0" mnemonicParsing="false" onAction="#refreshMI" text="Refresh" />
+      <Button fx:id="forwardMIButton" layoutX="1121.0" layoutY="607.0" mnemonicParsing="false" onAction="#forwardMI" text="Forward" />
+      <Button fx:id="backMIButton" layoutX="1059.0" layoutY="607.0" mnemonicParsing="false" onAction="#backMI" text="Back" />
+      <Line endX="11.0" endY="13.49993896484375" layoutX="485.0" layoutY="57.0" startX="11.0" startY="545.0" />
    </children>
 </Pane>
