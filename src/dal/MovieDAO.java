@@ -75,4 +75,8 @@ public class MovieDAO {
         return allMovies;
 
     }
+
+    public void deleteMovie(Movie movie){
+
+    }
 }

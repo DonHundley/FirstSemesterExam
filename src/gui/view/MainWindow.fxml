@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="651.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controller.MainController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="651.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controller.MainController">
    <children>
 
       <Label layoutX="24.0" layoutY="31.0" prefHeight="24.0" prefWidth="95.0" text="Search">
@@ -18,7 +18,7 @@
       </Label>
       <TextField fx:id="filterTextField" layoutX="81.0" layoutY="30.0" prefHeight="26.0" prefWidth="979.0" promptText="Enter Title, Rating, or Category..." />
       <Button fx:id="addMovieButton" layoutX="874.0" layoutY="607.0" mnemonicParsing="false" onAction="#openNewMovieWindow" text="Add Movie" />
-      <Button fx:id="deleteMovieButton" layoutX="967.0" layoutY="607.0" mnemonicParsing="false" onAction="#openConfirmWindow" text="Delete Movie" />
+      <Button fx:id="deleteMovieButton" layoutX="967.0" layoutY="607.0" mnemonicParsing="false" onAction="#openDeleteConfirmationWindow" text="Delete Movie" />
       <Button layoutX="30.0" layoutY="607.0" mnemonicParsing="false" text="Rate Movie!" />
       <TableView fx:id="movieTV" layoutX="81.0" layoutY="70.0" prefHeight="522.0" prefWidth="979.0">
         <columns>

@@ -1,6 +1,7 @@
 package gui.controller;
 
 import be.Movie;
+import com.microsoft.sqlserver.jdbc.SQLServerException;
 import gui.model.Model;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -27,19 +28,22 @@ import java.util.ResourceBundle;
 
 public class NewMovieWindowController implements Initializable {
     @FXML
-    private TextField movieTitleTextfield, myRatingTextField, fileInput, categoryTextField;
+    private TextField movieTitleTextfield, myRatingTextField, fileInput, categoryTextField, ratingIMDBTextField;
+
     @FXML
     private ComboBox categoryCombobox;
 
-    @FXML
-    private TextField ratingIMDBTextField;
     @FXML
     private Button newMovieSaveButton;
     @FXML
     private Button newMovieCancelButton;
 
+    private String selectedFile;
+
     private String[] categories = {"ACTION", "ADVENTURE", "DRAMA", "HORROR"};
 
+    static long millis = System.currentTimeMillis();
+    static java.sql.Date date = new java.sql.Date(millis);
 
     Model model = new Model();
 
@@ -80,8 +84,8 @@ public class NewMovieWindowController implements Initializable {
         FileChooser fileChooser = new FileChooser();
         setFileChooser(fileChooser);
         File file = fileChooser.showOpenDialog(new Stage());
+        selectedFile = file.getPath();
         fileInput.setText(file.getName());
-
     }
 
     /**
@@ -101,15 +105,13 @@ public class NewMovieWindowController implements Initializable {
     /**
      * when save button is pressed, takes input values and uses them as parameters in the add movie method. First checks that rating is a valid number and title is not empty. other checks might be added
      */
-    public void newMovieSave(ActionEvent actionEvent) {
-        if ((Integer.parseInt(ratingIMDBTextField.getText()) > 0 && Integer.parseInt(ratingIMDBTextField.getText()) <= 10) && (movieTitleTextfield.getText().length() > 0)) {
+    public void newMovieSave(ActionEvent actionEvent) throws SQLServerException {
+        if ((Float.parseFloat(ratingIMDBTextField.getText()) >= 0 && Float.parseFloat(ratingIMDBTextField.getText()) <= 10) && ((Float.parseFloat(myRatingTextField.getText()) >= 0 && Float.parseFloat(myRatingTextField.getText()) <= 10)) && (movieTitleTextfield.getText().length() > 0) && (selectedFile != null)) {
 
-            //model.addMovie(movieTitleTextfield.getText(), Integer.parseInt(ratingIMDBTextField.getText()));
+            model.addMovie(movieTitleTextfield.getText(), Float.parseFloat(myRatingTextField.getText()), selectedFile, date, Float.parseFloat(ratingIMDBTextField.getText()));
+            model.loadMovieList();
 
         }
-        movieTitleTextfield.clear();
-        categoryCombobox.cancelEdit();
-        ratingIMDBTextField.clear();
 
         Stage stage = (Stage) newMovieSaveButton.getScene().getWindow();
         stage.close();
