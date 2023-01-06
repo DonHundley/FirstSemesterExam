@@ -34,4 +34,9 @@ public class Model {
         return movie;
     }
 
+    public void deleteMovie(Movie movie) {
+        bll.deleteMovie(movie);
+        movies.remove(movie);
+    }
+
 }

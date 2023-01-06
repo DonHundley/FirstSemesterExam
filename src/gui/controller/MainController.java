@@ -21,6 +21,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
@@ -45,11 +46,11 @@ public class MainController implements Initializable {
     private TableView<Movie> movieTV;
 
 
-
     @FXML
     private TextField filterTextField;
 
     private Model model = new Model();
+
 
     @Override
     public void initialize(URL url, ResourceBundle resource) {
@@ -64,6 +65,7 @@ public class MainController implements Initializable {
         columnFile.setCellValueFactory(new PropertyValueFactory<>("fileLink"));
         columnLastView.setCellValueFactory(new PropertyValueFactory<>("lastView"));
         columnIMDBRating.setCellValueFactory(new PropertyValueFactory<>("IMDBRating"));
+
 
 
         FilteredList<Movie> filteredData = new FilteredList<>(model.getObsMovies(), b -> true);
@@ -93,6 +95,7 @@ public class MainController implements Initializable {
 
         // Apply filtered and sorted data to the Tableview.
         movieTV.setItems(sortedData);
+
     }
 
     /**
@@ -108,6 +111,27 @@ public class MainController implements Initializable {
         stage.show();
     }
 
-    public void openConfirmWindow(ActionEvent actionEvent) {
+
+    /**
+     * Method opens a confirmation window to confirm to delete the selected movie
+     */
+    public void openDeleteConfirmationWindow(ActionEvent actionEvent) throws IOException {
+
+        Movie selectedMovie = movieTV.getSelectionModel().getSelectedItem();
+        int selectedMovieID = selectedMovie.getId();
+
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Delete confirmation");
+        alert.setHeaderText("Do you really want to DELETE the movie?");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK) { //... user chose OK
+            model.deleteMovie(selectedMovie);
+            movieTV.getItems().remove(selectedMovie);
+            alert.close();
+        } else {
+            alert.close();
+        }
     }
+
 }

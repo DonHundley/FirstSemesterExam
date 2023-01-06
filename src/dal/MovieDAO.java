@@ -83,4 +83,8 @@ public class MovieDAO {
             System.out.println(e.getMessage());
         }
     }
+
+    public void deleteMovie(Movie movie){
+
+    }
 }
