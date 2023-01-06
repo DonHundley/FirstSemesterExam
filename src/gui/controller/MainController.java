@@ -35,9 +35,6 @@ public class MainController implements Initializable {
     public TableView<Movie> movieTV;
 
 
-
-
-
     @FXML
     private TextField filterTextField;
 
@@ -74,21 +71,20 @@ public class MainController implements Initializable {
     }
 
 
-
     /**
-     * Method opens a confirmation window to confirm to delete the selected movie*/
+     * Method opens a confirmation window to confirm to delete the selected movie
+     */
     public void openDeleteConfirmationWindow(ActionEvent actionEvent) throws IOException {
-
 
         Movie selectedMovie = movieTV.getSelectionModel().getSelectedItem();
         int selectedMovieID = selectedMovie.getId();
 
-        Alert alert=new Alert(Alert.AlertType.CONFIRMATION);
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Delete confirmation");
         alert.setHeaderText("Do you really want to DELETE the movie?");
 
         Optional<ButtonType> result = alert.showAndWait();
-        if (result.get() == ButtonType.OK){ //... user chose OK
+        if (result.get() == ButtonType.OK) { //... user chose OK
             model.deleteMovie(selectedMovie);
             movieTV.getItems().remove(selectedMovie);
             alert.close();
