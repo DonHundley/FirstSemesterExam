@@ -16,19 +16,27 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebHistory;
+import javafx.scene.web.WebView;
 import javafx.stage.Stage;
-
-import java.io.IOException;
 import java.net.URL;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.net.URLConnection;
 import java.sql.*;
 import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
 
+
     @FXML
-    private Button addMovieButton;
-    @FXML
-    private Button deleteMovieButton;
+    private Button addZoomMIButton, subZoomMIButton, movieSearchMIButton, homeMIButton, refreshMIButton, forwardMIButton, backMIButton, addMovieButton, deleteMovieButton;
+
     @FXML
     private TableColumn<Movie, Integer> columnID;
     @FXML
@@ -44,12 +52,19 @@ public class MainController implements Initializable {
     @FXML
     private TableView<Movie> movieTV;
 
+    @FXML
+    private WebView webView;
+    private WebEngine engine;
 
 
     @FXML
     private TextField filterTextField;
+    @FXML
+    private TextField movieInfoTextField;
 
     private Model model = new Model();
+
+
 
     @Override
     public void initialize(URL url, ResourceBundle resource) {
@@ -61,11 +76,15 @@ public class MainController implements Initializable {
         columnID.setCellValueFactory(new PropertyValueFactory<>("id"));
         columnTitle.setCellValueFactory(new PropertyValueFactory<>("name"));
         columnRating.setCellValueFactory(new PropertyValueFactory<>("rating"));
-        columnFile.setCellValueFactory(new PropertyValueFactory<>("fileLink"));
         columnLastView.setCellValueFactory(new PropertyValueFactory<>("lastView"));
         columnIMDBRating.setCellValueFactory(new PropertyValueFactory<>("IMDBRating"));
 
+        tableFilter();
+        webViewIMDB();
+    }
 
+    private void tableFilter()
+    {
         FilteredList<Movie> filteredData = new FilteredList<>(model.getObsMovies(), b -> true);
 
         filterTextField.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -78,7 +97,7 @@ public class MainController implements Initializable {
 
                 String searchKeyword = newValue.toLowerCase();
 
-                if (Movie.getName().toLowerCase().contains(searchKeyword)) {
+                if (Movie.toString().toLowerCase().contains(searchKeyword)) {
                     return true; //This means we found a matching title.
                 } else
                     return false;
@@ -95,10 +114,24 @@ public class MainController implements Initializable {
         movieTV.setItems(sortedData);
     }
 
+    private void webViewIMDB()  {
+
+        engine = webView.getEngine();
+
+        engine.load("https://www.allmovie.com");
+        webView.setZoom(0.75);
+
+        movieTV.getSelectionModel().selectedItemProperty().addListener(
+                (observableValue, oldUser, selectedUser) -> {
+                    engine.load("https://www.allmovie.com/search/all/" + selectedUser.getName());
+                });
+
+
+    }
+
     /**
      * opens a new window to add a new movie
      */
-
     public void openNewMovieWindow(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/gui/view/NewMovieWindow.fxml"));
         Stage stage = new Stage();
@@ -109,5 +142,33 @@ public class MainController implements Initializable {
     }
 
     public void openConfirmWindow(ActionEvent actionEvent) {
+    }
+
+    public void addZoomMI(ActionEvent actionEvent) {
+        webView.setZoom(webView.getZoom() + 0.25);
+    }
+
+    public void subZoomMI(ActionEvent actionEvent) {
+        webView.setZoom(webView.getZoom() - 0.25);
+    }
+
+    public void movieSearchMI(ActionEvent actionEvent) {
+        engine.load("https://www.allmovie.com/search/all/"+movieInfoTextField.getText());
+    }
+
+    public void homeMI(ActionEvent actionEvent) {
+        engine.load("https://www.allmovie.com");
+    }
+
+    public void refreshMI(ActionEvent actionEvent) {
+        engine.reload();
+    }
+
+    public void forwardMI(ActionEvent actionEvent) {
+        engine.getHistory().go(1);
+    }
+
+    public void backMI(ActionEvent actionEvent) {
+        engine.getHistory().go(-1);
     }
 }
