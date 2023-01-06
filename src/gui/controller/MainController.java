@@ -25,8 +25,10 @@ import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
 
-    public Button addMovieButton;
-    public Button deleteMovieButton;
+    @FXML
+    private Button addMovieButton;
+    @FXML
+    private Button deleteMovieButton;
     @FXML
     private TableColumn<Movie, Integer> columnID;
     @FXML
