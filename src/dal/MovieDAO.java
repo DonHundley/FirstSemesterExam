@@ -84,7 +84,4 @@ public class MovieDAO {
         }
     }
 
-    public void deleteMovie(Movie movie){
-
-    }
 }

@@ -35,7 +35,7 @@ public class Model {
     }
 
     public void deleteMovie(Movie movie) {
-        bll.deleteMovie(movie);
+        bll.deleteMovie(movie.getId());
         movies.remove(movie);
     }
 

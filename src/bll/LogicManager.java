@@ -15,8 +15,8 @@ public class LogicManager {
         return movieDAO.addMovie(name, rating, fileLink, lastView, IMDBRating);}
     public List<Movie> getAllMovies() {return movieDAO.getAllMovies();}
 
-    public void deleteMovie(Movie movie){
-        movieDAO.deleteMovie(movie);
+    public void deleteMovie(int id){
+        movieDAO.deleteMovie(id);
     }
 
 }
