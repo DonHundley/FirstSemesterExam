@@ -3,11 +3,7 @@ package dal;
 import be.Movie;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 
-import java.awt.*;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -73,6 +69,18 @@ public class MovieDAO {
             throw new RuntimeException(e);
         }
         return allMovies;
+    }
 
+    public void deleteMovie(int id) {
+        String sql = "DELETE FROM Movie WHERE MovieID= ?";
+
+        try (Connection conn = databaseConnector.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setInt(1, id);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 }
