@@ -35,9 +35,10 @@ import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
 
+
     @FXML
     private Button addZoomMIButton, subZoomMIButton, movieSearchMIButton, homeMIButton, refreshMIButton,
-            forwardMIButton, backMIButton, addMovieButton, deleteMovieButton, mediaPlayerButton, rateMovieButton;
+            forwardMIButton, backMIButton, addMovieButton, deleteMovieButton, mediaPlayerButton, rateMovieButton, refreshTVButton;
 
     @FXML
     private TableColumn<Movie, Integer> columnID;
@@ -72,8 +73,7 @@ public class MainController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resource) {
 
-        movieTV.setItems(model.getObsMovies());
-        model.loadMovieList();
+        setTV();
 
         columnID.setCellValueFactory(new PropertyValueFactory<>("id"));
         columnTitle.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -139,31 +139,6 @@ public class MainController implements Initializable {
 
                 });
     }
-
-
-
-
-    /**
-     * Method opens a confirmation window to confirm to delete the selected movie
-     */
-    public void openDeleteConfirmationWindow(ActionEvent actionEvent) throws IOException {
-
-        Movie selectedMovie = movieTV.getSelectionModel().getSelectedItem();
-        int selectedMovieID = selectedMovie.getId();
-
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Delete confirmation");
-        alert.setHeaderText("Do you really want to DELETE the movie?");
-
-        Optional<ButtonType> result = alert.showAndWait();
-        if (result.get() == ButtonType.OK) { //... user chose OK
-            model.deleteMovie(selectedMovie);
-            movieTV.getItems().remove(selectedMovie);
-            alert.close();
-        } else {
-            alert.close();
-        }
-    }
     
     @FXML
     private void addZoomMI(ActionEvent actionEvent) {webView.setZoom(webView.getZoom() + 0.25);}
@@ -179,10 +154,10 @@ public class MainController implements Initializable {
     private void forwardMI(ActionEvent actionEvent) {engine.getHistory().go(1);}
     @FXML
     private void backMI(ActionEvent actionEvent) {engine.getHistory().go(-1);}
-
-    public void rateMovie(ActionEvent actionEvent) {
-
-    }
+    @FXML
+    private void refreshTV(ActionEvent actionEvent) {setTV();}
+    @FXML
+    private void rateMovie(ActionEvent actionEvent) {}
 
     /**
      * opens a new window to add a new movie
@@ -205,4 +180,27 @@ public class MainController implements Initializable {
         stage.show();
 
     }
+    /**
+     * Method opens a confirmation window to confirm to delete the selected movie
+     */
+    @FXML
+    private void openDeleteConfirmationWindow(ActionEvent actionEvent) throws IOException {
+
+        Movie selectedMovie = movieTV.getSelectionModel().getSelectedItem();
+        int selectedMovieID = selectedMovie.getId();
+
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Delete confirmation");
+        alert.setHeaderText("Do you really want to DELETE the movie?");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK) { //... user chose OK
+            model.deleteMovie(selectedMovie);
+            movieTV.getItems().remove(selectedMovie);
+            alert.close();
+        } else {
+            alert.close();
+        }
+    }
+    private void setTV(){movieTV.setItems(model.getObsMovies());model.loadMovieList();}
 }
