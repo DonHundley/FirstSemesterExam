@@ -19,9 +19,9 @@
          </font>
       </Label>
       <TextField fx:id="filterTextField" layoutX="81.0" layoutY="30.0" prefHeight="26.0" prefWidth="204.0" promptText="Enter Title, Rating, or Category..." />
-      <Button fx:id="addMovieButton" layoutX="299.0" layoutY="607.0" mnemonicParsing="false" onAction="#openNewMovieWindow" text="Add Movie" />
-      <Button fx:id="deleteMovieButton" layoutX="385.0" layoutY="607.0" mnemonicParsing="false" onAction="#openDeleteConfirmationWindow" text="Delete Movie" />
-      <Button layoutX="30.0" layoutY="607.0" mnemonicParsing="false" text="Rate Movie!" />
+      <Button fx:id="addMovieButton" layoutX="309.0" layoutY="607.0" mnemonicParsing="false" onAction="#openNewMovieWindow" text="Add Movie" />
+      <Button fx:id="deleteMovieButton" layoutX="394.0" layoutY="607.0" mnemonicParsing="false" onAction="#openDeleteConfirmationWindow" text="Delete Movie" />
+      <Button fx:id="rateMovieButton" layoutX="14.0" layoutY="607.0" mnemonicParsing="false" onAction="#rateMovie" text="Rate Movie!" />
       <TableView fx:id="movieTV" layoutX="5.0" layoutY="70.0" prefHeight="534.0" prefWidth="480.0">
         <columns>
           <TableColumn fx:id="columnID" prefWidth="36.0" text="#" />
@@ -46,5 +46,6 @@
       <Button fx:id="forwardMIButton" layoutX="1121.0" layoutY="607.0" mnemonicParsing="false" onAction="#forwardMI" text="Forward" />
       <Button fx:id="backMIButton" layoutX="1059.0" layoutY="607.0" mnemonicParsing="false" onAction="#backMI" text="Back" />
       <Line endX="11.0" endY="13.49993896484375" layoutX="485.0" layoutY="57.0" startX="11.0" startY="545.0" />
+      <Button fx:id="mediaPlayerButton" layoutX="141.0" layoutY="607.0" mnemonicParsing="false" onAction="#launchMediaPlayer" prefHeight="30.0" prefWidth="127.0" text="Go to MediaPlayer" />
    </children>
 </Pane>

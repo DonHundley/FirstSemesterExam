@@ -32,10 +32,13 @@ import java.sql.*;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+
 public class MainController implements Initializable {
 
     @FXML
-    private Button addZoomMIButton, subZoomMIButton, movieSearchMIButton, homeMIButton, refreshMIButton, forwardMIButton, backMIButton, addMovieButton, deleteMovieButton;
+    private Button addZoomMIButton, subZoomMIButton, movieSearchMIButton, homeMIButton, refreshMIButton,
+            forwardMIButton, backMIButton, addMovieButton, deleteMovieButton, mediaPlayerButton, rateMovieButton;
+
     @FXML
     private TableColumn<Movie, Integer> columnID;
     @FXML
@@ -133,20 +136,11 @@ public class MainController implements Initializable {
         movieTV.getSelectionModel().selectedItemProperty().addListener(
                 (observableValue, oldUser, selectedUser) -> {
                     engine.load("https://www.allmovie.com/search/all/" + selectedUser.getName());
+                    System.out.println(selectedUser.getFileLink());
                 });
     }
 
-    /**
-     * opens a new window to add a new movie
-     */
-    public void openNewMovieWindow(ActionEvent actionEvent) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/gui/view/NewMovieWindow.fxml"));
-        Stage stage = new Stage();
-        Scene scene = new Scene(root);
-        stage.setTitle("Add new movie");
-        stage.setScene(scene);
-        stage.show();
-    }
+
 
 
     /**
@@ -186,4 +180,29 @@ public class MainController implements Initializable {
     @FXML
     private void backMI(ActionEvent actionEvent) {engine.getHistory().go(-1);}
 
+    public void rateMovie(ActionEvent actionEvent) {
+
+    }
+
+    /**
+     * opens a new window to add a new movie
+     */
+    public void openNewMovieWindow(ActionEvent actionEvent) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("/gui/view/NewMovieWindow.fxml"));
+        Stage stage = new Stage();
+        Scene scene = new Scene(root);
+        stage.setTitle("Add new movie");
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    public void launchMediaPlayer(ActionEvent actionEvent) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("/gui/view/MediaPlayer.fxml"));
+        Stage stage = new Stage();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.setTitle("Media Player");
+        stage.show();
+
+    }
 }
