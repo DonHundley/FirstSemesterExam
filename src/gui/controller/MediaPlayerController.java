@@ -1,15 +1,12 @@
 package gui.controller;
 
 import be.Movie;
-import com.sun.tools.javac.Main;
 import gui.model.Model;
 import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
@@ -17,21 +14,17 @@ import javafx.scene.image.ImageView;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
-import javafx.stage.FileChooser;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 
 
 import java.io.File;
-import java.io.IOException;
 import java.net.URL;
-import java.security.cert.Extension;
-import java.sql.SQLException;
 import java.util.ResourceBundle;
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class MediaPlayerController implements Initializable {
+
     @FXML
     private ImageView volumeIcon, playIcon;
     @FXML
@@ -43,7 +36,7 @@ public class MediaPlayerController implements Initializable {
     @FXML
     private TableColumn<Movie, String> columnTitleMP;
     @FXML
-    private Button playButton, previousButton, nextButton, backToMovieInfoButton;
+    private Button playButton, previousButton, nextButton, backToMovieInfoButton, muteButton;
 
 
     @FXML
@@ -72,6 +65,8 @@ public class MediaPlayerController implements Initializable {
 
 
 
+
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
@@ -95,18 +90,20 @@ public class MediaPlayerController implements Initializable {
             settingsAssurance();
         });
 
-        tableFilter();
+        tableFilterMP();
         playbackSpeed();
         volume();
+
+
     }
 
 
 
-    private void tableFilter() {
-        FilteredList<Movie> filteredData = new FilteredList<>(model.getObsMovies(), b -> true);
+    private void tableFilterMP() {
+        FilteredList<Movie> filteredDataMP = new FilteredList<>(model.getObsMovies(), b -> true);
 
         filterTextFieldMP.textProperty().addListener((observable, oldValue, newValue) -> {
-            filteredData.setPredicate(Movie -> {
+            filteredDataMP.setPredicate(Movie -> {
 
                 // If there is no search value then it will continue to display as normal.
                 if (newValue.isEmpty() || newValue.isBlank()) {
@@ -115,9 +112,20 @@ public class MediaPlayerController implements Initializable {
 
                 String searchKeyword = newValue.toLowerCase();
 
-                return Movie.toString().toLowerCase().contains(searchKeyword); //This means we found a match.
+
+                if (Movie.getName().toLowerCase().contains(searchKeyword)) {
+                    return true; //This means we found a match.
+                } else
+                    return false;
             });
         });
+        SortedList<Movie> sortedData = new SortedList<>(filteredDataMP);
+
+        // Bind sorted result to Tableview.
+        sortedData.comparatorProperty().bind(movieTVMP.comparatorProperty());
+
+        // Apply filtered and sorted data to the Tableview.
+        movieTVMP.setItems(sortedData);
     }
 
     /**
@@ -158,6 +166,7 @@ public class MediaPlayerController implements Initializable {
                     mediaPlayer.stop();
                     timer.cancel();
                     running = false;
+                    playIcon.setImage(new Image("images/play_icon.png"));
                     settingsAssurance();
                 }
             }
@@ -175,11 +184,13 @@ public class MediaPlayerController implements Initializable {
             beginTimer();
             running = true;
             mediaPlayer.play();
+            playIcon.setImage(new Image("images/pause_icon.png"));
         } else
         {
             timer.cancel();
             running = false;
             mediaPlayer.pause();
+            playIcon.setImage(new Image("images/play_icon.png"));
         }
     }
 
@@ -197,4 +208,17 @@ public class MediaPlayerController implements Initializable {
     private void settingsAssurance() {
         mediaPlayer.setVolume(volumeSlider.getValue() * 0.01);
         changeSpeed(null);}
+    @FXML
+    private void muteMP(ActionEvent actionEvent) {
+        if(mediaPlayer.isMute()) {
+            mediaPlayer.setMute(false);
+            volumeIcon.setImage(new Image("images/volume_icon.png"));
+
+        }
+        else
+        {
+            mediaPlayer.setMute(true);
+            volumeIcon.setImage(new Image("images/volume_mute.png"));
+        }
+    }
 }
