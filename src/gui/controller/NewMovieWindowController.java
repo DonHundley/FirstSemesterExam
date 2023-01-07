@@ -98,7 +98,7 @@ public class NewMovieWindowController implements Initializable {
                 new File(System.getProperty("user.home"))
         );
         fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("files", "*.mp4", "*.mpeg")
+                new FileChooser.ExtensionFilter("files", "*.mp4", "*.mpeg4")
         );
     }
 

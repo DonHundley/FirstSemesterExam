@@ -17,6 +17,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -24,6 +25,7 @@ import javafx.util.Duration;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.security.cert.Extension;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 import java.util.Timer;
@@ -35,11 +37,11 @@ public class MediaPlayerController implements Initializable {
     @FXML
     private TextField filterTextFieldMP;
     @FXML
-    private TableView<Movie> movieTV;
+    private TableView<Movie> movieTVMP;
     @FXML
-    private TableColumn<Movie, Integer> columnID;
+    private TableColumn<Movie, Integer> columnIDMP;
     @FXML
-    private TableColumn<Movie, String> columnTitle;
+    private TableColumn<Movie, String> columnTitleMP;
     @FXML
     private Button playButton, previousButton, nextButton, backToMovieInfoButton;
 
@@ -73,20 +75,25 @@ public class MediaPlayerController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        movieTV.setItems(model.getObsMovies());
+        movieTVMP.setItems(model.getObsMovies());
         model.loadMovieList();
 
-        columnID.setCellValueFactory(new PropertyValueFactory<>("id"));
-        columnTitle.setCellValueFactory(new PropertyValueFactory<>("name"));
+        columnIDMP.setCellValueFactory(new PropertyValueFactory<>("id"));
+        columnTitleMP.setCellValueFactory(new PropertyValueFactory<>("name"));
 
 
-        movieTV.getSelectionModel().selectedItemProperty().addListener((observableValue, oldUser, selectedUser) -> {
-                    File movie = new File(movieTV.getSelectionModel().getSelectedItem().getFileLink());
-                    media = new Media(movie.toURI().toString());
-                    mediaPlayer = new MediaPlayer(media);
-                    mediaViewWindow.setMediaPlayer(mediaPlayer);
-                    settingsAssurance();
-                });
+        movieTVMP.getSelectionModel().selectedItemProperty().addListener((observableValue, oldUser, selectedUser) -> {
+            String name = movieTVMP.getSelectionModel().getSelectedItem().getFileLink();
+            String s1 = name.substring(name.indexOf("moviesLocalFolder"));
+            File movie = new File(s1);
+
+            //System.out.println(movie);
+            //System.out.println(movieTVMP.getSelectionModel().getSelectedItem().getFileLink());
+            media = new Media(movie.toURI().toString());
+            mediaPlayer = new MediaPlayer(media);
+            mediaViewWindow.setMediaPlayer(mediaPlayer);
+            settingsAssurance();
+        });
 
         tableFilter();
         playbackSpeed();

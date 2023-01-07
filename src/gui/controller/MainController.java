@@ -136,7 +136,7 @@ public class MainController implements Initializable {
         movieTV.getSelectionModel().selectedItemProperty().addListener(
                 (observableValue, oldUser, selectedUser) -> {
                     engine.load("https://www.allmovie.com/search/all/" + selectedUser.getName());
-                    System.out.println(selectedUser.getFileLink());
+
                 });
     }
 
