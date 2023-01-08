@@ -6,6 +6,7 @@ import com.microsoft.sqlserver.jdbc.SQLServerException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class Model {
@@ -37,6 +38,11 @@ public class Model {
     public void deleteMovie(Movie movie) {
         bll.deleteMovie(movie.getId());
         movies.remove(movie);
+    }
+
+    public void lastviewUpdate(int id){
+        bll.lastviewUpdate(id);
+
     }
 
 }

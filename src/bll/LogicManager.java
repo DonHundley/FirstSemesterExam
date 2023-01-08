@@ -4,6 +4,7 @@ import be.Movie;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 import dal.MovieDAO;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -18,6 +19,8 @@ public class LogicManager {
     public void deleteMovie(int id){
         movieDAO.deleteMovie(id);
     }
-
+    public void lastviewUpdate(int id){
+        movieDAO.lastviewUpdate(id);
+    }
 }
 
