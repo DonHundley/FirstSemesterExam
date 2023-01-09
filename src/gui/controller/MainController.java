@@ -2,6 +2,7 @@ package gui.controller;
 
 import be.Movie;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
+import com.sun.jdi.event.MonitorContendedEnteredEvent;
 import dal.DatabaseConnector;
 import gui.model.Model;
 import javafx.collections.FXCollections;
@@ -20,6 +21,7 @@ import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebHistory;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
+
 import java.net.URL;
 
 import java.io.BufferedReader;
@@ -29,6 +31,17 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
 import java.sql.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.Duration;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+import java.time.temporal.Temporal;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -65,9 +78,10 @@ public class MainController implements Initializable {
     @FXML
     private TextField movieInfoTextField;
 
+    static long millis = System.currentTimeMillis();
+    static java.sql.Date date = new java.sql.Date(millis);
 
     private Model model = new Model();
-
 
 
     @Override
@@ -83,16 +97,16 @@ public class MainController implements Initializable {
 
         tableFilter();
         webViewIMDB();
+        moviesToDelete();
     }
 
     /**
      * This takes our table view text input and compares it to the data in the table view.
      * If there is a match with the user search, it will display those matches.
-     *
+     * <p>
      * TO DO: Allow for search of a rating + all ratings above that rating.
      */
-    private void tableFilter()
-    {
+    private void tableFilter() {
         FilteredList<Movie> filteredData = new FilteredList<>(model.getObsMovies(), b -> true);
 
         filterTextField.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -126,7 +140,7 @@ public class MainController implements Initializable {
      * This method is used to set up our webview.
      * The listener searches for the movie title when clicked in the table view.
      */
-    private void webViewIMDB()  {
+    private void webViewIMDB() {
 
         engine = webView.getEngine();
 
@@ -139,25 +153,50 @@ public class MainController implements Initializable {
 
                 });
     }
-    
+
     @FXML
-    private void addZoomMI(ActionEvent actionEvent) {webView.setZoom(webView.getZoom() + 0.25);}
+    private void addZoomMI(ActionEvent actionEvent) {
+        webView.setZoom(webView.getZoom() + 0.25);
+    }
+
     @FXML
-    private void subZoomMI(ActionEvent actionEvent) {webView.setZoom(webView.getZoom() - 0.25);}
+    private void subZoomMI(ActionEvent actionEvent) {
+        webView.setZoom(webView.getZoom() - 0.25);
+    }
+
     @FXML
-    private void movieSearchMI(ActionEvent actionEvent) {engine.load("https://www.allmovie.com/search/all/"+movieInfoTextField.getText());}
+    private void movieSearchMI(ActionEvent actionEvent) {
+        engine.load("https://www.allmovie.com/search/all/" + movieInfoTextField.getText());
+    }
+
     @FXML
-    private void homeMI(ActionEvent actionEvent) {engine.load("https://www.allmovie.com");}
+    private void homeMI(ActionEvent actionEvent) {
+        engine.load("https://www.allmovie.com");
+    }
+
     @FXML
-    private void refreshMI(ActionEvent actionEvent) {engine.reload();}
+    private void refreshMI(ActionEvent actionEvent) {
+        engine.reload();
+    }
+
     @FXML
-    private void forwardMI(ActionEvent actionEvent) {engine.getHistory().go(1);}
+    private void forwardMI(ActionEvent actionEvent) {
+        engine.getHistory().go(1);
+    }
+
     @FXML
-    private void backMI(ActionEvent actionEvent) {engine.getHistory().go(-1);}
+    private void backMI(ActionEvent actionEvent) {
+        engine.getHistory().go(-1);
+    }
+
     @FXML
-    private void refreshTV(ActionEvent actionEvent) {setTV();}
+    private void refreshTV(ActionEvent actionEvent) {
+        setTV();
+    }
+
     @FXML
-    private void rateMovie(ActionEvent actionEvent) {}
+    private void rateMovie(ActionEvent actionEvent) {
+    }
 
     /**
      * opens a new window to add a new movie
@@ -180,6 +219,7 @@ public class MainController implements Initializable {
         stage.show();
 
     }
+
     /**
      * Method opens a confirmation window to confirm to delete the selected movie
      */
@@ -202,5 +242,40 @@ public class MainController implements Initializable {
             alert.close();
         }
     }
-    private void setTV(){movieTV.setItems(model.getObsMovies());model.loadMovieList();}
+
+    private void setTV() {
+        movieTV.setItems(model.getObsMovies());
+        model.loadMovieList();
+    }
+
+
+    /**
+     * Method to show a warning when the application is launched. It warns the user about unopened movies for 2 years
+     * and with ratings lower than 6, and suggests to delete them */
+
+    public void moviesToDelete() {
+
+
+        ArrayList<String> moviesToDelete = new ArrayList<>();
+        for (Movie m : movieTV.getItems()) {
+
+            long daysBetween = Math.round((date.getTime() - m.getLastView().getTime()) / (double) (1000 * 60 * 60 * 24)) - 1;
+            //System.out.println(daysBetween);
+            if ((daysBetween > (365 * 2)) && (m.getRating() < 6)) {
+                moviesToDelete.add(m.getName());
+            }}
+
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Delete movies warning");
+            alert.setHeaderText("Remember to delete these unopened movies in the last 2 years and with low ratings:");
+            alert.setContentText(String.valueOf(moviesToDelete));
+            Optional<ButtonType> result = alert.showAndWait();
+            alert.getContentText();
+            if (result.get() == ButtonType.CLOSE) {
+                alert.close();
+            }
+
+    }
+
+
 }

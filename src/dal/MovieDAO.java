@@ -13,6 +13,8 @@ public class MovieDAO {
     private DatabaseConnector databaseConnector;
     static long millis = System.currentTimeMillis();
     static java.sql.Date date = new java.sql.Date(millis);
+
+
     public MovieDAO() {
         databaseConnector = new DatabaseConnector();
     }
@@ -84,4 +86,19 @@ public class MovieDAO {
         }
     }
 
+    public void lastviewUpdate(int id){
+
+        String sql = "UPDATE Movie set lastview=? WHERE MovieID= ?";
+
+        try (Connection conn = databaseConnector.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setDate(1, date);
+            pstmt.setInt(2, id);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+    }
 }

@@ -185,6 +185,11 @@ public class MediaPlayerController implements Initializable {
             running = true;
             mediaPlayer.play();
             playIcon.setImage(new Image("images/pause_icon.png"));
+
+            int selectedMovieID = movieTVMP.getSelectionModel().getSelectedItem().getId();
+            System.out.println(selectedMovieID);
+           updateLastview(selectedMovieID);
+
         } else
         {
             timer.cancel();
@@ -220,5 +225,12 @@ public class MediaPlayerController implements Initializable {
             mediaPlayer.setMute(true);
             volumeIcon.setImage(new Image("images/volume_mute.png"));
         }
+    }
+
+    /**
+     * Method to update lastview when a movie is opened in media player*/
+
+    public void updateLastview(int id){
+        model.lastviewUpdate(id);
     }
 }
