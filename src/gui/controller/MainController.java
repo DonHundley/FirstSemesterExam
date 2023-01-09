@@ -31,8 +31,13 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
 import java.sql.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.Duration;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.Period;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.Temporal;
 import java.util.ArrayList;
@@ -243,26 +248,33 @@ public class MainController implements Initializable {
         model.loadMovieList();
     }
 
+
+    /**
+     * Method to show a warning when the application is launched. It warns the user about unopened movies for 2 years
+     * and with ratings lower than 6, and suggests to delete them */
+
     public void moviesToDelete() {
 
-        ArrayList<String> moviesToDelete=new ArrayList<>();
+
+        ArrayList<String> moviesToDelete = new ArrayList<>();
         for (Movie m : movieTV.getItems()) {
-            int period = date.getYear()-m.getLastView().getYear();
 
-            if ((period>= 2) && (m.getRating() < 6)) {
+            long daysBetween = Math.round((date.getTime() - m.getLastView().getTime()) / (double) (1000 * 60 * 60 * 24)) - 1;
+            //System.out.println(daysBetween);
+            if ((daysBetween > (365 * 2)) && (m.getRating() < 6)) {
                 moviesToDelete.add(m.getName());
-            }
-        }
+            }}
 
-        Alert alert=new Alert(Alert.AlertType.WARNING);
-        alert.setTitle("Delete movies warnings");
-        alert.setHeaderText("Remember to delete these movies unopened in the last 2 years and with low ratings");
-        alert.setContentText(String.valueOf(moviesToDelete));
-        Optional<ButtonType> result = alert.showAndWait();
-        alert.getContentText();
-        if (result.get() == ButtonType.CLOSE) {
-            alert.close();
-        }
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Delete movies warning");
+            alert.setHeaderText("Remember to delete these unopened movies in the last 2 years and with low ratings:");
+            alert.setContentText(String.valueOf(moviesToDelete));
+            Optional<ButtonType> result = alert.showAndWait();
+            alert.getContentText();
+            if (result.get() == ButtonType.CLOSE) {
+                alert.close();
+            }
+
     }
 
 
