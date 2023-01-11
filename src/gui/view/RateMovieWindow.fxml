@@ -7,21 +7,22 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane prefHeight="116.0" prefWidth="245.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controller.RateMovieWindowController">
+<AnchorPane prefHeight="143.0" prefWidth="247.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controller.RateMovieWindowController">
    <children>
-      <Label layoutX="68.0" layoutY="14.0" text="Rate This Movie!">
+      <Label fx:id="rateMovieLabel" layoutX="68.0" layoutY="14.0" text="Rate This Movie!">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
       <Line endX="122.0" layoutX="123.0" layoutY="42.0" startX="-123.0" />
-      <TextField layoutX="68.0" layoutY="60.0" prefHeight="25.0" prefWidth="39.0" promptText="1 - 5" />
+      <TextField fx:id="ratingTextField" layoutX="68.0" layoutY="60.0" prefHeight="25.0" prefWidth="168.0" promptText="1-10" />
       <Label layoutX="14.0" layoutY="62.0" text="Rating:">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
-      <Button fx:id="myRatingSaveButton" layoutX="178.0" layoutY="59.0" mnemonicParsing="false" onAction="#closeMyRatingWindow" text="Save" />
+      <Button fx:id="myRatingSaveButton" layoutX="123.0" layoutY="108.0" mnemonicParsing="false" onAction="#saveMyRatingWindow" text="Save" />
+      <Button fx:id="myRatingCancelButton" layoutX="178.0" layoutY="108.0" mnemonicParsing="false" onAction="#closeMyRatingWindow" text="Cancel" />
+      <Label fx:id="errorLabel" layoutX="24.0" layoutY="85.0" prefHeight="17.0" prefWidth="212.0" textFill="#d00d0d" />
    </children>
 </AnchorPane>

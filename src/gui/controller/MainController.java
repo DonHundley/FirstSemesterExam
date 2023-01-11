@@ -150,8 +150,12 @@ public class MainController implements Initializable {
 
         movieTV.getSelectionModel().selectedItemProperty().addListener(
                 (observableValue, oldUser, selectedUser) -> {
-                    engine.load("https://www.allmovie.com/search/all/" + selectedUser.getName());
-
+                    if (selectedUser == null){
+                        engine.load("https://www.allmovie.com");
+                    }
+                    else {
+                        engine.load("https://www.allmovie.com/search/all/" + selectedUser.getName());
+                    }
                 });
     }
 
@@ -196,7 +200,27 @@ public class MainController implements Initializable {
     }
 
     @FXML
-    private void rateMovie(ActionEvent actionEvent) {
+    private void rateMovie(ActionEvent actionEvent) throws IOException, NullPointerException{
+        Movie selectedMovie = movieTV.getSelectionModel().getSelectedItem();
+        int selectedMovieID = selectedMovie.getId();
+        float selectedMovieRating = selectedMovie.getRating();
+        String selectedMovieTitle= selectedMovie.getName();
+
+
+        FXMLLoader loader =  new FXMLLoader(getClass().getResource("/gui/view/RateMovieWindow.fxml"));
+        Parent root = loader.load();
+        RateMovieWindowController controller = loader.getController();
+        controller.setModelRating(model);
+        controller.setMovieIDRE(selectedMovieID);
+        controller.setMovieRatingRE(selectedMovieRating);
+        controller.setMovieTitleRE(selectedMovieTitle);
+        Stage stage = new Stage();
+        Scene scene = new Scene(root);
+        stage.setTitle("Rate Movie!");
+        stage.setScene(scene);
+        stage.show();
+
+
     }
 
     /**

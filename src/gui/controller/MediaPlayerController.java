@@ -70,8 +70,7 @@ public class MediaPlayerController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        movieTVMP.setItems(model.getObsMovies());
-        model.loadMovieList();
+        setTVMP();
 
         columnIDMP.setCellValueFactory(new PropertyValueFactory<>("id"));
         columnTitleMP.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -97,7 +96,10 @@ public class MediaPlayerController implements Initializable {
 
     }
 
-
+    public void setTVMP(){
+        movieTVMP.setItems(model.getObsMovies());
+        model.loadMovieList();
+    }
 
     private void tableFilterMP() {
         FilteredList<Movie> filteredDataMP = new FilteredList<>(model.getObsMovies(), b -> true);
@@ -218,7 +220,6 @@ public class MediaPlayerController implements Initializable {
         if(mediaPlayer.isMute()) {
             mediaPlayer.setMute(false);
             volumeIcon.setImage(new Image("images/volume_icon.png"));
-
         }
         else
         {
@@ -233,4 +234,5 @@ public class MediaPlayerController implements Initializable {
     public void updateLastview(int id){
         model.lastviewUpdate(id);
     }
+
 }

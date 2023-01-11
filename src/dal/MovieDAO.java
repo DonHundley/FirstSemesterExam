@@ -101,4 +101,21 @@ public class MovieDAO {
         }
 
     }
+
+    public void addUserReview(float rating, int id){
+
+        String sql = "UPDATE Movie set rating=? WHERE MovieID= ?";
+
+        try (Connection conn = databaseConnector.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+
+            pstmt.setFloat(1, rating);
+            pstmt.setInt(2, id);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+    }
 }

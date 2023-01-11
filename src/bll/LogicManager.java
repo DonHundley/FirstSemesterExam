@@ -27,6 +27,8 @@ public class LogicManager {
         movieDAO.lastviewUpdate(id);
     }
 
+    public void addUserReview(float rating, int id){movieDAO.addUserReview(rating,id);}
+
     public Category addCategory (String name) throws SQLServerException {
         return categoryDAO.addCategory(name);
     }

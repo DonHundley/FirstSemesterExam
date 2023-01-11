@@ -48,6 +48,10 @@ public class Model {
         bll.lastviewUpdate(id);
     }
 
+    public void addUserReview(float rating, int id) {
+        bll.addUserReview(rating, id);
+    }
+
     public Category addCategory(String name) throws SQLServerException {
         Category category = bll.addCategory(name);
         categories.add(category);

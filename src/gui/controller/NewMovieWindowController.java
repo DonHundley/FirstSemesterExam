@@ -129,4 +129,5 @@ public class NewMovieWindowController implements Initializable {
     public void setModel(Model model) {
         this.model = model;
     }
+
 }
