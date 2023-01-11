@@ -259,7 +259,7 @@ public class MainController implements Initializable {
 
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Delete confirmation");
-        alert.setHeaderText("Do you really want to DELETE the movie?");
+        alert.setHeaderText("Do you really want to DELETE "+selectedMovie.getName()+"?");
 
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK) { //... user chose OK

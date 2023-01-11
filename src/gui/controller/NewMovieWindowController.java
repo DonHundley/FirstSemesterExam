@@ -21,6 +21,10 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -84,7 +88,12 @@ public class NewMovieWindowController implements Initializable {
         FileChooser fileChooser = new FileChooser();
         setFileChooser(fileChooser);
         File file = fileChooser.showOpenDialog(new Stage());
-        selectedFile = file.getPath();
+
+        Path movefrom = FileSystems.getDefault().getPath(file.getPath());
+        Path target = FileSystems.getDefault().getPath("moviesLocalFolder/"+file.getName());
+        try{Files.move(movefrom,target, StandardCopyOption.ATOMIC_MOVE);}catch (IOException e){}
+
+        selectedFile = target.toString();
         fileInput.setText(file.getName());
     }
 
