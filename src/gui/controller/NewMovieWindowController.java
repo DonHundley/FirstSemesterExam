@@ -45,7 +45,7 @@ public class NewMovieWindowController implements Initializable {
     static long millis = System.currentTimeMillis();
     static java.sql.Date date = new java.sql.Date(millis);
 
-    Model model = new Model();
+    private Model model;
 
 
     @Override
@@ -126,4 +126,7 @@ public class NewMovieWindowController implements Initializable {
     }
 
 
+    public void setModel(Model model) {
+        this.model = model;
+    }
 }

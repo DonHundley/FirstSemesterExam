@@ -18,6 +18,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebErrorEvent;
 import javafx.scene.web.WebHistory;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
@@ -202,7 +203,10 @@ public class MainController implements Initializable {
      * opens a new window to add a new movie
      */
     public void openNewMovieWindow(ActionEvent actionEvent) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/gui/view/NewMovieWindow.fxml"));
+        FXMLLoader loader =  new FXMLLoader(getClass().getResource("/gui/view/NewMovieWindow.fxml"));
+        Parent root = loader.load();
+        NewMovieWindowController controller = loader.getController();
+        controller.setModel(model);
         Stage stage = new Stage();
         Scene scene = new Scene(root);
         stage.setTitle("Add new movie");
@@ -278,4 +282,15 @@ public class MainController implements Initializable {
     }
 
 
+    public void openManageCategoryWindow(ActionEvent actionEvent) throws IOException {
+        FXMLLoader loader =  new FXMLLoader(getClass().getResource("/gui/view/ManageCategoryWindow.fxml"));
+        Parent root = loader.load();
+        ManageCategoryWindowController manageCategoryWindowController = loader.getController();
+        manageCategoryWindowController.setModel(model);
+        Stage stage = new Stage();
+        Scene scene = new Scene(root);
+        stage.setTitle("Category Manager");
+        stage.setScene(scene);
+        stage.show();
+    }
 }

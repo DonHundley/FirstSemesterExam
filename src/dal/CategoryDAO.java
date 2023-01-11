@@ -16,8 +16,8 @@ public class CategoryDAO {
 
     public static void main(String[] args) throws SQLServerException {
         CategoryDAO categoryDAO = new CategoryDAO();
-        //List<Category> allCategories = categoryDAO.getAllCategories();
-        //System.out.println(allCategories);
+        List<Category> allCategories = categoryDAO.getAllCategories();
+        System.out.println(allCategories);
         //categoryDAO.addCategory("Action");
     }
 

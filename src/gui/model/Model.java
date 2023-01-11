@@ -1,5 +1,6 @@
 package gui.model;
 
+import be.Category;
 import be.Movie;
 import bll.LogicManager;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
@@ -8,12 +9,16 @@ import javafx.collections.ObservableList;
 
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.List;
 
 public class Model {
 
 
+    private final ObservableList<Movie> movies = FXCollections.observableArrayList();
 
-    private final ObservableList<Movie> movies = FXCollections.observableArrayList();;
+    private final ObservableList<Category> categories = FXCollections.observableArrayList();
+
+
     private LogicManager bll = new LogicManager();
 
 
@@ -22,8 +27,7 @@ public class Model {
     }
 
 
-    public void loadMovieList()
-    {
+    public void loadMovieList() {
         movies.clear();
         movies.addAll(bll.getAllMovies());
     }
@@ -40,9 +44,22 @@ public class Model {
         movies.remove(movie);
     }
 
-    public void lastviewUpdate(int id){
+    public void lastviewUpdate(int id) {
         bll.lastviewUpdate(id);
+    }
 
+    public Category addCategory(String name) throws SQLServerException {
+        Category category = bll.addCategory(name);
+        categories.add(category);
+        return category;
+    }
+
+    public void getAllCategories() {
+        categories.addAll(bll.getAllCategories());
+    }
+
+    public ObservableList<Category> getCategories() {
+        return categories;
     }
 
 }
