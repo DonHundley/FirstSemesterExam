@@ -17,23 +17,27 @@ public class CatMovieDAO {
     public static void main(String[] args) throws SQLServerException {
         CatMovieDAO catMovieDAO = new CatMovieDAO();
         //catMovieDAO.addCatMovie(1, 19);
-        //List<Category> allCategories = categoryDAO.getAllCategories();
-        //System.out.println(allCategories);
-        //categoryDAO.addCategory("Action");
     }
 
-    public void addCatMovie(int categoryID, int movieID) {
-        String sql = "INSERT INTO CatMovie (CategoryID, MovieID) VALUES (?, ?)";
+    public void addCatToMovie(int categoryID, int movieID) throws SQLException {
+        String sql = "IF NOT EXISTS (SELECT * FROM CatMovie " +
+                "                   WHERE CategoryID = ? " +
+                "                   AND MovieID = ?) " +
+                "   BEGIN " +
+                "       INSERT INTO CatMovie (CategoryID, MovieID) " +
+                "       VALUES (?, ?) " +
+                "   END";
 
-        try (Connection conn = databaseConnector.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-
+        try(Connection conn = databaseConnector.getConnection();
+        PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, categoryID);
             pstmt.setInt(2, movieID);
+            pstmt.setInt(3, categoryID);
+            pstmt.setInt(4, movieID);
             pstmt.executeUpdate();
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
+        System.out.println(e.getMessage());
+    }
     }
 
     public List<CatMovie> getAllCatForMovie(int idOfMovie) {

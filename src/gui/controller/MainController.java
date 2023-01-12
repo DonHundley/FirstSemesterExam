@@ -308,10 +308,17 @@ public class MainController implements Initializable {
 
 
     public void openManageCategoryWindow(ActionEvent actionEvent) throws IOException {
+        Movie selectedMovie = movieTV.getSelectionModel().getSelectedItem();
+        int selectedMovieID = selectedMovie.getId();
+        String selectedMovieTitle= selectedMovie.getName();
+
+
         FXMLLoader loader =  new FXMLLoader(getClass().getResource("/gui/view/ManageCategoryWindow.fxml"));
         Parent root = loader.load();
         ManageCategoryWindowController manageCategoryWindowController = loader.getController();
         manageCategoryWindowController.setModel(model);
+        manageCategoryWindowController.setMovie(selectedMovie);
+        manageCategoryWindowController.setMovieTitle(selectedMovieTitle);
         Stage stage = new Stage();
         Scene scene = new Scene(root);
         stage.setTitle("Category Manager");

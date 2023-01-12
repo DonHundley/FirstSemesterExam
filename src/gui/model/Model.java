@@ -7,6 +7,7 @@ import com.microsoft.sqlserver.jdbc.SQLServerException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import java.sql.SQLException;
 import java.util.Date;
 
 public class Model {
@@ -68,6 +69,10 @@ public class Model {
     public void deleteCategory(Category category) {
         bll.deleteCategory(category.getId());
         categories.remove(category);
+    }
+
+    public void addCatToMovie(Category category, Movie movie) throws SQLException {
+        bll.addCatToMovie(category, movie);
     }
 
 }
