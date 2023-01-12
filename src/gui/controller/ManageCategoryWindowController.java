@@ -7,12 +7,13 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.util.Callback;
 
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.ResourceBundle;
 
 public class ManageCategoryWindowController implements Initializable {
@@ -21,37 +22,29 @@ public class ManageCategoryWindowController implements Initializable {
     @FXML
     private TextField addCategoryTextField;
     @FXML
-    private ComboBox categoryComboBox;
-
-    private ArrayList<String> categoryList = new ArrayList<>();
+    private ComboBox<Category> categoryComboBox;
 
     public void initialize(URL location, ResourceBundle resources) {
-        model = new Model();
-        model.getAllCategories();
-        addCategoryToComboBox();
     }
 
 
     public void addCategoryButton(ActionEvent actionEvent) throws SQLServerException {
-        String value = addCategoryTextField.getText();
 
-        if (/*!(c.contains(value.toUpperCase())) && */ value.length() > 0) {
+        if (/*!(c.contains(value.toUpperCase())) && */ !addCategoryTextField.getText().isEmpty()) {
             model.addCategory(addCategoryTextField.getText());
-            categoryComboBox.getItems().add(value);
         }
         addCategoryTextField.clear();
     }
 
-
-    public void addCategoryToComboBox() {
-        for (Category c : model.getCategories()) {
-            categoryList.add(c.getName());
-        }
-        categoryComboBox.getItems().addAll(categoryList);
-    }
-
-
     public void setModel(Model model) {
         this.model = model;
+        model.fetchCategoriesFromStorage();
+        categoryComboBox.setItems(model.getCategories());
+
+    }
+
+    public void deleteCategory(ActionEvent actionEvent) {
+        Category category = categoryComboBox.getSelectionModel().getSelectedItem();
+        model.deleteCategory(category);
     }
 }

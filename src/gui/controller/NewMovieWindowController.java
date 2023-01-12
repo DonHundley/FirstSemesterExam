@@ -116,8 +116,8 @@ public class NewMovieWindowController implements Initializable {
      */
     public void newMovieSave(ActionEvent actionEvent) throws SQLServerException {
         if ((Float.parseFloat(ratingIMDBTextField.getText()) >= 0 && Float.parseFloat(ratingIMDBTextField.getText()) <= 10) && ((Float.parseFloat(myRatingTextField.getText()) >= 0 && Float.parseFloat(myRatingTextField.getText()) <= 10)) && (movieTitleTextfield.getText().length() > 0) && (selectedFile != null)) {
-
-            model.addMovie(movieTitleTextfield.getText(), Float.parseFloat(myRatingTextField.getText()), selectedFile, date, Float.parseFloat(ratingIMDBTextField.getText()));
+            Movie m = new Movie(movieTitleTextfield.getText(), Float.parseFloat(myRatingTextField.getText()), selectedFile, date, Float.parseFloat(ratingIMDBTextField.getText()));
+            model.addMovie(m);
             model.loadMovieList();
 
         }

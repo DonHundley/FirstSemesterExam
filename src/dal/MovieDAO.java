@@ -26,19 +26,23 @@ public class MovieDAO {
         //movieDAO.addMovie("Titanic", 8, "ForTestingPurposes", date, 8);
     }
 
-    public Movie addMovie(String name, float rating, String fileLink, Date lastView, float IMDBRating) throws SQLServerException {
+    public Movie addMovie(Movie movie) throws SQLServerException {
         try(Connection connection = databaseConnector.getConnection()) {
-            String insert = "'" + name + "'" + "," +  rating  + "," + "'" + fileLink + "'" + "," + "'" + lastView + "'" + ","  + IMDBRating;
-            String sql = "INSERT INTO Movie (Name, Rating, FileLink, LastView, IMDBRating) VALUES (" + insert + ")";
+            String sql = "INSERT INTO Movie (Name, Rating, FileLink, LastView, IMDBRating) VALUES (?,?,?,?,?)";
 
-            Statement statement = connection.createStatement();
-            statement.execute(sql, Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            statement.setString(1, movie.getName());
+            statement.setFloat(2, movie.getRating());
+            statement.setString(3, movie.getFileLink());
+            statement.setDate(4, new java.sql.Date(movie.getLastView().getTime()));
+            statement.setFloat(5, movie.getIMDBRating());
+            statement.execute();
 
             ResultSet keys = statement.getGeneratedKeys();
             keys.next();
             int id = keys.getInt(1);
 
-            return new Movie(id, name, rating, fileLink, lastView, IMDBRating);
+            return new Movie(id, movie.getName(), movie.getRating(),  movie.getFileLink(), movie.getLastView(), movie.getIMDBRating());
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

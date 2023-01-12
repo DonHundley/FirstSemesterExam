@@ -7,9 +7,7 @@ import com.microsoft.sqlserver.jdbc.SQLServerException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import java.time.LocalDate;
 import java.util.Date;
-import java.util.List;
 
 public class Model {
 
@@ -33,9 +31,9 @@ public class Model {
     }
 
 
-    public Movie addMovie(String name, float rating, String fileLink, Date lastView, float IMDBRating) throws SQLServerException {
-        Movie movie = bll.addMovie(name, rating, fileLink, lastView, IMDBRating);
-        movies.add(movie);
+    public Movie addMovie(Movie movie) throws SQLServerException {
+        Movie m = bll.addMovie(movie);
+        movies.add(m);
         return movie;
     }
 
@@ -58,12 +56,18 @@ public class Model {
         return category;
     }
 
-    public void getAllCategories() {
+    public void fetchCategoriesFromStorage() {
+        categories.clear();
         categories.addAll(bll.getAllCategories());
     }
 
     public ObservableList<Category> getCategories() {
         return categories;
+    }
+
+    public void deleteCategory(Category category) {
+        bll.deleteCategory(category.getId());
+        categories.remove(category);
     }
 
 }

@@ -16,8 +16,8 @@ public class LogicManager {
     private CategoryDAO categoryDAO = new CategoryDAO();
 
 
-    public Movie addMovie(String name, float rating, String fileLink, Date lastView, float IMDBRating) throws SQLServerException {
-        return movieDAO.addMovie(name, rating, fileLink, lastView, IMDBRating);}
+    public Movie addMovie(Movie m) throws SQLServerException {
+        return movieDAO.addMovie(m);}
     public List<Movie> getAllMovies() {return movieDAO.getAllMovies();}
 
     public void deleteMovie(int id){
@@ -35,6 +35,10 @@ public class LogicManager {
 
     public List<Category> getAllCategories() {
         return categoryDAO.getAllCategories();
+    }
+
+    public void deleteCategory(int id) {
+        categoryDAO.deleteCategory(id);
     }
 }
 

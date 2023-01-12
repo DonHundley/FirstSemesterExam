@@ -1,19 +1,29 @@
 package be;
 
+import javafx.beans.property.SimpleStringProperty;
+
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class Movie {
 
     private int id;
-    private String name;
+    private SimpleStringProperty name = new SimpleStringProperty();
     private float rating;
     private String fileLink;
     private Date lastView;
     private float IMDBRating;
 
+    List<Category> categories = new ArrayList<>();
+
+    private String getCategoriesAsString(){
+        return categories.toString();
+    }
+
     public Movie(String name, float rating, String fileLink, Date lastView, float IMDBRating) {
-        this.name = name;
+        this.name.set(name);
         this.rating = rating;
         this.fileLink = fileLink;
         this.lastView = lastView;
@@ -24,13 +34,17 @@ public class Movie {
         this(name, rating, fileLink,lastView, IMDBRating);
         this.id = id;
     }
+
     public String getName() {
+        return name.get();
+    }
+
+    public SimpleStringProperty nameProperty() {
         return name;
     }
 
-
     public void setName(String name) {
-        this.name = name;
+        this.name.set(name);
     }
 
     public float getRating() {

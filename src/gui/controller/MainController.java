@@ -91,6 +91,7 @@ public class MainController implements Initializable {
         setTV();
 
         columnID.setCellValueFactory(new PropertyValueFactory<>("id"));
+       // columnCats.setCellValueFactory(new PropertyValueFactory<>("categoriesAsString"));
         columnTitle.setCellValueFactory(new PropertyValueFactory<>("name"));
         columnRating.setCellValueFactory(new PropertyValueFactory<>("rating"));
         columnLastView.setCellValueFactory(new PropertyValueFactory<>("lastView"));
