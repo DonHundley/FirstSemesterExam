@@ -1,5 +1,6 @@
 package gui.model;
 
+import be.CatMovie;
 import be.Category;
 import be.Movie;
 import bll.LogicManager;
@@ -17,6 +18,8 @@ public class Model {
 
     private final ObservableList<Category> categories = FXCollections.observableArrayList();
 
+    private final ObservableList<CatMovie> catMovieObservableList = FXCollections.observableArrayList();
+
 
     private LogicManager bll = new LogicManager();
 
@@ -29,6 +32,7 @@ public class Model {
     public void loadMovieList() {
         movies.clear();
         movies.addAll(bll.getAllMovies());
+
     }
 
 

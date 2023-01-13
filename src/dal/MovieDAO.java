@@ -1,5 +1,6 @@
 package dal;
 
+import be.Category;
 import be.Movie;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 
@@ -64,6 +65,7 @@ public class MovieDAO {
                     String fileLink = resultSet.getString("FileLink");
                     Date lastView = resultSet.getDate("LastView");
                     float IMDBRating = resultSet.getFloat("IMDBRating");
+
 
                     Movie movie = new Movie(id, name, rating, fileLink, lastView, IMDBRating);
                     allMovies.add(movie);

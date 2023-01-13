@@ -25,6 +25,7 @@ public class LogicManager {
         return movieDAO.addMovie(m);}
     public List<Movie> getAllMovies() {return movieDAO.getAllMovies();}
 
+
     public void deleteMovie(int id){
         movieDAO.deleteMovie(id);
     }
@@ -49,5 +50,7 @@ public class LogicManager {
     public void addCatToMovie (Category category, Movie movie) throws SQLException {
         catMovieDAO.addCatToMovie(category.getId(), movie.getId());
     }
+
+
 }
 

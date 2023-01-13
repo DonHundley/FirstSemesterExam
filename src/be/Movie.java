@@ -16,11 +16,16 @@ public class Movie {
     private Date lastView;
     private float IMDBRating;
 
-    List<Category> categories = new ArrayList<>();
+    private List<Category> categories;
 
-    private String getCategoriesAsString(){
+    public String getCategoriesAsString(){
         return categories.toString();
     }
+
+    public List<Category> getCategories() {
+        return categories;
+    }
+
 
     public Movie(String name, float rating, String fileLink, Date lastView, float IMDBRating) {
         this.name.set(name);
@@ -28,6 +33,7 @@ public class Movie {
         this.fileLink = fileLink;
         this.lastView = lastView;
         this.IMDBRating = IMDBRating;
+        this.categories = new ArrayList<>();
     }
 
     public Movie(int id, String name, float rating, String fileLink, Date lastView, float IMDBRating) {

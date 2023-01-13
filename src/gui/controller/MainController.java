@@ -48,6 +48,7 @@ import java.util.*;
 public class MainController implements Initializable {
 
 
+
     @FXML
     private Button addZoomMIButton, subZoomMIButton, movieSearchMIButton, homeMIButton, refreshMIButton,
             forwardMIButton, backMIButton, addMovieButton, deleteMovieButton, mediaPlayerButton, rateMovieButton, refreshTVButton;
@@ -59,7 +60,7 @@ public class MainController implements Initializable {
     @FXML
     private TableColumn<Movie, Float> columnRating;
     @FXML
-    private TableColumn<Movie, String> columnFile;
+    private TableColumn<Movie, String> columnCategories;
     @FXML
     private TableColumn<Movie, Date> columnLastView;
     @FXML
@@ -89,7 +90,7 @@ public class MainController implements Initializable {
         setTV();
 
         columnID.setCellValueFactory(new PropertyValueFactory<>("id"));
-       // columnCats.setCellValueFactory(new PropertyValueFactory<>("categoriesAsString"));
+        columnCategories.setCellValueFactory(new PropertyValueFactory<>("categoriesAsString"));
         columnTitle.setCellValueFactory(new PropertyValueFactory<>("name"));
         columnRating.setCellValueFactory(new PropertyValueFactory<>("rating"));
         columnLastView.setCellValueFactory(new PropertyValueFactory<>("lastView"));
@@ -273,6 +274,8 @@ public class MainController implements Initializable {
     private void setTV() {
         movieTV.setItems(model.getObsMovies());
         model.loadMovieList();
+
+
     }
 
 
