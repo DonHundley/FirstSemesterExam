@@ -35,16 +35,11 @@ public class NewMovieWindowController implements Initializable {
     private TextField movieTitleTextfield, myRatingTextField, fileInput, categoryTextField, ratingIMDBTextField;
 
     @FXML
-    private ComboBox categoryCombobox;
-
-    @FXML
     private Button newMovieSaveButton;
     @FXML
     private Button newMovieCancelButton;
 
     private String selectedFile;
-
-    private String[] categories = {"ACTION", "ADVENTURE", "DRAMA", "HORROR"};
 
     static long millis = System.currentTimeMillis();
     static java.sql.Date date = new java.sql.Date(millis);
@@ -54,31 +49,7 @@ public class NewMovieWindowController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        selectCategory();
-    }
 
-    /**
-     * method to add categories to the combobox
-     */
-
-    public void selectCategory() {
-        for (String category : categories) {
-            categoryCombobox.getItems().add(category);
-
-        }
-    }
-
-    /**
-     * method that add a new category to the combobox when the add button is pressed
-     * It checks that the input category doesn't already exist, that the input is not empty and converts it to uppercase
-     */
-    public void AddNewCategory(ActionEvent actionEvent) {
-        String value = categoryTextField.getText();
-        List c = Arrays.asList(categories);
-        if (!(c.contains(value.toUpperCase())) && value.length() > 0) {
-            categoryCombobox.getItems().add(value.toUpperCase());
-        }
-        categoryTextField.clear();
     }
 
     /**

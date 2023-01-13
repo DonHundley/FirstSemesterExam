@@ -24,7 +24,7 @@ public class CategoryDAO {
     public Category addCategory(String name) throws SQLServerException {
         try(Connection connection = databaseConnector.getConnection()) {
             String insert = "'" + name + "'";
-            String sql = "INSERT INTO Category (Name) VALUES (" + insert + ")";
+            String sql = "INSERT INTO Category (CategoryName) VALUES (" + insert + ")";
 
             Statement statement = connection.createStatement();
             statement.execute(sql, Statement.RETURN_GENERATED_KEYS);
@@ -50,7 +50,7 @@ public class CategoryDAO {
                 ResultSet resultSet = statement.getResultSet();
                 while(resultSet.next()) {
                     int id = resultSet.getInt("CategoryID");
-                    String name = resultSet.getString("Name");
+                    String name = resultSet.getString("CategoryName");
 
                     Category category = new Category(id, name);
                     allCategories.add(category);

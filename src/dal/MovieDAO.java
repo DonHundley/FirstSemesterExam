@@ -1,6 +1,5 @@
 package dal;
 
-import be.Category;
 import be.Movie;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 
@@ -43,7 +42,15 @@ public class MovieDAO {
             keys.next();
             int id = keys.getInt(1);
 
+            String sql2 = "INSERT INTO CatMovie (CategoryID, MovieID) VALUES (?, ?)";
+
+            PreparedStatement statement2 = connection.prepareStatement(sql2);
+            statement2.setInt(1, 1008);
+            statement2.setInt(2, id);
+            statement2.execute();
+
             return new Movie(id, movie.getName(), movie.getRating(),  movie.getFileLink(), movie.getLastView(), movie.getIMDBRating());
+
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -52,7 +59,7 @@ public class MovieDAO {
     public List<Movie> getAllMovies() {
         ArrayList<Movie> allMovies = new ArrayList<>();
         try(Connection connection = databaseConnector.getConnection()){
-            String sql = "SELECT * FROM Movie";
+            String sql = "SELECT * FROM CatMovie JOIN Movie ON CatMovie.MovieID = Movie.MovieID JOIN Category ON CatMovie.CategoryID = Category.CategoryID";
 
             Statement statement = connection.createStatement();
 
