@@ -4,6 +4,10 @@ import be.Movie;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 import com.sun.jdi.event.MonitorContendedEnteredEvent;
 import dal.DatabaseConnector;
+import be.Result;
+import be.TMDB;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import gui.model.Model;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -17,6 +21,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebErrorEvent;
 import javafx.scene.web.WebHistory;
@@ -29,6 +35,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.Reader;
+import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 import java.sql.*;
@@ -43,11 +51,19 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.Temporal;
 import java.util.*;
+import java.util.ArrayList;
+import java.util.Optional;
+import java.util.ResourceBundle;
 
 
 public class MainController implements Initializable {
 
 
+
+    @FXML
+    private ImageView imgPoster, backdropImage;
+    @FXML
+    private Label ratingTMDB, lblTitle, releaseDateTMDB, descriptionText;
 
     @FXML
     private Button addZoomMIButton, subZoomMIButton, movieSearchMIButton, homeMIButton, refreshMIButton,
@@ -89,6 +105,7 @@ public class MainController implements Initializable {
 
         setTV();
 
+
         columnID.setCellValueFactory(new PropertyValueFactory<>("id"));
         columnCategories.setCellValueFactory(new PropertyValueFactory<>("categoriesAsString"));
         columnTitle.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -98,6 +115,7 @@ public class MainController implements Initializable {
 
         tableFilter();
         webViewIMDB();
+        movieInformation();
         moviesToDelete();
     }
 
@@ -158,6 +176,43 @@ public class MainController implements Initializable {
                     }
                 });
     }
+
+    private void movieInformation(){
+        movieTV.getSelectionModel().selectedItemProperty().addListener(
+                (observableValue, oldUser, selectedUser) -> {
+                        try {
+                            String imagePath="https://image.tmdb.org/t/p/original/";
+                            String uri =
+                                    "https://api.themoviedb.org/3/search/movie?api_key=b576033e42ffbda195c7a11b2a406a10&language=en-US&query="
+                                            + selectedUser.getName().replace(" ","+") +
+                                            "&page=1&include_adult=false";
+
+                            URL url = new URL(uri);
+                            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                            conn.setRequestMethod("GET");
+                            conn.setRequestProperty("Accept", "application/json");
+
+                            if (conn.getResponseCode() != 200) {
+                                throw new RuntimeException("Failed : HTTP error code :"
+                                        + conn.getResponseCode());
+                            }
+                            try(Reader reader = new BufferedReader(new InputStreamReader(
+                                    (conn.getInputStream())))){
+                                Gson gson = new GsonBuilder().create();
+                                TMDB p = gson.fromJson(reader, TMDB.class);
+                                Result r = p.getResults().get(0);
+                                lblTitle.setText(r.getTitle());
+                                imgPoster.imageProperty().setValue(new Image(imagePath+r.getPoster_path()));
+                                ratingTMDB.setText(r.getVote_average().toString());
+                                descriptionText.setText(r.getOverview());
+                                releaseDateTMDB.setText(r.getRelease_date());
+                                backdropImage.imageProperty().setValue(new Image(imagePath+r.getBackdrop_path()));
+                            }
+                            conn.disconnect();
+                        } catch (IOException e) {e.printStackTrace();}
+                });
+    }
+
 
     @FXML
     private void addZoomMI(ActionEvent actionEvent) {
