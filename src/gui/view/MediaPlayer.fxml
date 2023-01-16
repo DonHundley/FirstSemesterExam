@@ -23,11 +23,15 @@
                 <TableColumn fx:id="columnTitleMP" prefWidth="202.0" text="Title" />
             </columns>
         </TableView>
-      <MediaView fx:id="mediaViewWindow" fitHeight="576.0" fitWidth="720.0" layoutX="264.0" layoutY="120.0">
-         <viewport>
-            <Rectangle2D height="500.0" minX="10.0" minY="10.0" width="800.0" />
-         </viewport>
-      </MediaView>
+      <Pane layoutX="264.0" layoutY="120.0" mouseTransparent="true" style="-fx-background-color: black;">
+         <children>
+            <MediaView fx:id="mediaViewWindow" fitHeight="576.0" fitWidth="720.0">
+               <viewport>
+                  <Rectangle2D height="500.0" minX="10.0" minY="10.0" width="800.0" />
+               </viewport>
+            </MediaView>
+         </children>
+      </Pane>
       <Line endX="24.0" endY="32.0" layoutX="227.0" layoutY="10.0" startX="24.0" startY="616.0" />
       <Button fx:id="playButton" layoutX="603.0" layoutY="588.0" mnemonicParsing="false" onAction="#playMedia" prefHeight="42.0" prefWidth="42.0" />
       <Button fx:id="previousButton" layoutX="568.0" layoutY="596.0" mnemonicParsing="false" onAction="#previousMedia" prefHeight="26.0" prefWidth="26.0" />

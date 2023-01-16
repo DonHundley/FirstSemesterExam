@@ -39,6 +39,7 @@ public class Movie {
     public Movie(int id, String name, float rating, String fileLink, Date lastView, float IMDBRating) {
         this(name, rating, fileLink,lastView, IMDBRating);
         this.id = id;
+        this.categories = new ArrayList<>();
     }
 
     public String getName() {

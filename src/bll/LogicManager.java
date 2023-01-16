@@ -51,6 +51,5 @@ public class LogicManager {
         catMovieDAO.addCatToMovie(category.getId(), movie.getId());
     }
 
-
 }
 

@@ -18,7 +18,6 @@ public class Model {
 
     private final ObservableList<Category> categories = FXCollections.observableArrayList();
 
-    private final ObservableList<CatMovie> catMovieObservableList = FXCollections.observableArrayList();
 
 
     private LogicManager bll = new LogicManager();
@@ -32,7 +31,6 @@ public class Model {
     public void loadMovieList() {
         movies.clear();
         movies.addAll(bll.getAllMovies());
-
     }
 
 

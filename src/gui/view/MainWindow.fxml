@@ -2,11 +2,14 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
@@ -24,7 +27,7 @@
       <Button fx:id="addMovieButton" layoutX="367.0" layoutY="609.0" mnemonicParsing="false" onAction="#openNewMovieWindow" text="Add" />
       <Button fx:id="deleteMovieButton" layoutX="421.0" layoutY="609.0" mnemonicParsing="false" onAction="#openDeleteConfirmationWindow" text="Delete" />
       <Button fx:id="rateMovieButton" layoutX="5.0" layoutY="609.0" mnemonicParsing="false" onAction="#rateMovie" text="Rate Movie!" />
-      <TableView fx:id="movieTV" layoutX="14.0" layoutY="70.0" prefHeight="534.0" prefWidth="576.0">
+      <TableView fx:id="movieTV" layoutX="5.0" layoutY="69.0" prefHeight="534.0" prefWidth="576.0">
         <columns>
           <TableColumn fx:id="columnID" prefWidth="36.0" text="#" />
           <TableColumn fx:id="columnTitle" prefWidth="127.0" text="Title" />
@@ -34,21 +37,7 @@
             <TableColumn fx:id="columnLastView" prefWidth="86.0" text="Last View" />
         </columns>
       </TableView>
-      <WebView fx:id="webView" layoutX="590.0" layoutY="70.0" prefHeight="534.0" prefWidth="676.0" />
-      <Label layoutX="865.0" layoutY="31.0" prefHeight="24.0" prefWidth="127.0" text="Movie Information" textAlignment="CENTER">
-         <font>
-            <Font name="System Bold" size="14.0" />
-         </font>
-      </Label>
-      <TextField fx:id="movieInfoTextField" layoutX="602.0" layoutY="33.0" promptText="Movie Title" />
-      <Button fx:id="addZoomMIButton" layoutX="869.0" layoutY="607.0" mnemonicParsing="false" onAction="#addZoomMI" text="+ Zoom" />
-      <Button fx:id="subZoomMIButton" layoutX="936.0" layoutY="607.0" mnemonicParsing="false" onAction="#subZoomMI" text="- Zoom" />
-      <Button fx:id="movieSearchMIButton" layoutX="760.0" layoutY="31.0" minWidth="41.0" mnemonicParsing="false" onAction="#movieSearchMI" prefHeight="30.0" prefWidth="63.0" text="Search" />
-      <Button fx:id="homeMIButton" layoutX="590.0" layoutY="607.0" mnemonicParsing="false" onAction="#homeMI" text="Home" />
-      <Button fx:id="refreshMIButton" layoutX="648.0" layoutY="607.0" mnemonicParsing="false" onAction="#refreshMI" text="Refresh" />
-      <Button fx:id="forwardMIButton" layoutX="1203.0" layoutY="607.0" mnemonicParsing="false" onAction="#forwardMI" text="Forward" />
-      <Button fx:id="backMIButton" layoutX="1143.0" layoutY="607.0" mnemonicParsing="false" onAction="#backMI" text="Back" />
-      <Line endX="11.0" endY="13.49993896484375" layoutX="579.0" layoutY="57.0" startX="11.0" startY="545.0" />
+      <Line endX="11.0" endY="-56.0" layoutX="579.0" layoutY="57.0" startX="11.0" startY="588.0" />
       <Button fx:id="mediaPlayerButton" layoutX="222.0" layoutY="609.0" mnemonicParsing="false" onAction="#launchMediaPlayer" prefHeight="30.0" prefWidth="127.0" text="Go to MediaPlayer" />
       <Button fx:id="refreshTVButton" layoutX="521.0" layoutY="31.0" minWidth="29.0" mnemonicParsing="false" onAction="#refreshTV" prefHeight="30.0" prefWidth="60.0" />
       <ImageView fitHeight="24.0" fitWidth="29.0" layoutX="539.0" layoutY="34.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
@@ -57,5 +46,75 @@
          </image>
       </ImageView>
       <Button fx:id="manageCategory" layoutX="91.0" layoutY="609.0" mnemonicParsing="false" onAction="#openManageCategoryWindow" text="Manage Category" />
+      <TabPane layoutX="591.0" prefHeight="645.0" prefWidth="688.0" style="-fx-background-color: black; -fx-border-color: #20bee1;" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab closable="false" text="Movie Information">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <ImageView fx:id="backdropImage" fitHeight="638.0" fitWidth="1270.0" layoutX="-588.0" layoutY="-59.0" mouseTransparent="true" opacity="0.51" pickOnBounds="true" preserveRatio="true" />
+                        <Label layoutX="332.0" layoutY="108.0" mouseTransparent="true" prefHeight="49.0" prefWidth="104.0" text="Rating:" textFill="#20bee1">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="lblTitle" alignment="CENTER" contentDisplay="CENTER" layoutX="6.0" layoutY="48.0" prefHeight="49.0" prefWidth="679.0" textAlignment="CENTER" textFill="#20bee1">
+                           <font>
+                              <Font size="33.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="ratingTMDB" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="530.0" layoutY="114.0" mouseTransparent="true" prefHeight="49.0" prefWidth="150.0" textAlignment="RIGHT" textFill="#20bee1">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="332.0" layoutY="319.0" mouseTransparent="true" text="Movie Description" textFill="#20bee1">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <ImageView fitHeight="85.0" fitWidth="411.0" layoutX="127.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../images/tmdb.png" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="332.0" layoutY="163.0" mouseTransparent="true" prefHeight="49.0" prefWidth="127.0" text="Released:" textFill="#20bee1">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="releaseDateTMDB" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="441.0" layoutY="163.0" mouseTransparent="true" prefHeight="49.0" prefWidth="239.0" textAlignment="RIGHT" textFill="#20bee1">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="descriptionText" alignment="TOP_LEFT" layoutX="333.0" layoutY="346.0" mouseTransparent="true" prefHeight="222.0" prefWidth="338.0" textFill="#20bee1" wrapText="true">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <ImageView fx:id="imgPoster" fitHeight="465.0" fitWidth="319.0" layoutX="14.0" layoutY="100.0" pickOnBounds="true" preserveRatio="true" />
+                     </children></AnchorPane>
+            </content>
+          </Tab>
+          <Tab closable="false" text="WebView">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Button fx:id="subZoomMIButton" layoutX="406.0" layoutY="549.0" mnemonicParsing="false" onAction="#subZoomMI" text="- Zoom" />
+                        <Button fx:id="addZoomMIButton" layoutX="470.0" layoutY="549.0" mnemonicParsing="false" onAction="#addZoomMI" text="+ Zoom" />
+                        <WebView fx:id="webView" layoutX="3.0" prefHeight="534.0" prefWidth="682.0" />
+                        <Button fx:id="backMIButton" layoutX="551.0" layoutY="549.0" mnemonicParsing="false" onAction="#backMI" text="Back" />
+                        <Button fx:id="movieSearchMIButton" layoutX="175.0" layoutY="549.0" minWidth="41.0" mnemonicParsing="false" onAction="#movieSearchMI" prefHeight="30.0" prefWidth="63.0" text="Search" />
+                        <Button fx:id="homeMIButton" layoutX="274.0" layoutY="549.0" mnemonicParsing="false" onAction="#homeMI" text="Home" />
+                        <Button fx:id="refreshMIButton" layoutX="336.0" layoutY="549.0" mnemonicParsing="false" onAction="#refreshMI" text="Refresh" />
+                        <Button fx:id="forwardMIButton" layoutX="611.0" layoutY="549.0" mnemonicParsing="false" onAction="#forwardMI" text="Forward" />
+                        <TextField fx:id="movieInfoTextField" layoutX="14.0" layoutY="551.0" promptText="Movie Title" />
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+        </tabs>
+      </TabPane>
    </children>
 </Pane>

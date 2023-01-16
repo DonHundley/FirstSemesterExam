@@ -1,5 +1,6 @@
 package dal;
 
+import be.Category;
 import be.Movie;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 
@@ -58,6 +59,7 @@ public class MovieDAO {
 
     public List<Movie> getAllMovies() {
         ArrayList<Movie> allMovies = new ArrayList<>();
+        ArrayList<Category> allMovieCategories = new ArrayList<>();
         try(Connection connection = databaseConnector.getConnection()){
             String sql = "SELECT * FROM CatMovie JOIN Movie ON CatMovie.MovieID = Movie.MovieID JOIN Category ON CatMovie.CategoryID = Category.CategoryID";
 
@@ -72,9 +74,24 @@ public class MovieDAO {
                     String fileLink = resultSet.getString("FileLink");
                     Date lastView = resultSet.getDate("LastView");
                     float IMDBRating = resultSet.getFloat("IMDBRating");
+                    int categoryID = resultSet.getInt("CategoryID");
+                    String catName = resultSet.getString("CategoryName");
 
+
+
+
+                    Category categoriesForMovie = new Category(categoryID, catName);
+                    allMovieCategories.add(categoriesForMovie);
 
                     Movie movie = new Movie(id, name, rating, fileLink, lastView, IMDBRating);
+                    movie.getCategories().add(categoriesForMovie);
+                    //movie.getCategories().addAll(allMovieCategories);
+                    //System.out.println(categoriesForMovie);
+                    //for (Movie m: allMovies
+                    //     ) {if (!allMovies.contains(m.getId()))
+
+                    //}
+                    //allMovies.get(1).getCategories().addAll(allMovieCategories);
                     allMovies.add(movie);
                 }
             }
