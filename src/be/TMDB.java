@@ -3,8 +3,11 @@ package be;
 import java.util.List;
 
 
-public class TMDB {
+/**
+ * This class is nearly a direct copy of the example given from Jeppe, as it is almost entirely variables with their getters and setters I did not write this and took it from the example.
+ */
 
+public class TMDB {
         private Integer page;
         private Integer total_results;
         private Integer total_pages;

@@ -30,7 +30,6 @@ import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 
 import java.net.URL;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -88,7 +87,6 @@ public class MainController implements Initializable {
     private WebView webView;
     private WebEngine engine;
 
-
     @FXML
     private TextField filterTextField;
     @FXML
@@ -103,7 +101,8 @@ public class MainController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resource) {
 
-        setTV();
+        movieTV.setItems(model.getObsMovies());
+        model.loadMovieList();
 
 
         columnID.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -177,6 +176,21 @@ public class MainController implements Initializable {
                 });
     }
 
+    /**
+     * This method is how we are fetching the data from TMDB to be displayed. Some of this code is reused from the example given by Jeppe.
+     * It was not fully functional and only displayed the title.
+     *
+     * My additions:
+     * This method takes our focused movie from the table view and immediately searches for it, replacing spaces in the title with +, otherwise the website would fail the search.
+     * next we collect the information from TMDB and give it structure to be used for our needs.
+     * We fetch the movie poster, the movie title, the user voted average rating from TMDB, their description of the movie, the release date, and finally we use the backdrop image from them as well.
+     * The images require a very specific path. This was outlined on TMDBs website. The original code from Jeppe had the beginnings of this, but it did not function.
+     * Using the example given by the website I found that there are only certain resolutions you can request.
+     * However, if you request the original as I did in the image path it will give you that instead of your specified resolution and this image will scale to your specified window size.
+     *
+     * There are a lot more things that could be implemented with the API and some functions could be automated with this information.
+     * More information on using the API can be found here https://developers.themoviedb.org/3/getting-started/introduction.
+     */
     private void movieInformation(){
         movieTV.getSelectionModel().selectedItemProperty().addListener(
                 (observableValue, oldUser, selectedUser) -> {
@@ -215,44 +229,25 @@ public class MainController implements Initializable {
 
 
     @FXML
-    private void addZoomMI(ActionEvent actionEvent) {
-        webView.setZoom(webView.getZoom() + 0.25);
-    }
+    private void addZoomMI(ActionEvent actionEvent) {webView.setZoom(webView.getZoom() + 0.25);}
 
     @FXML
-    private void subZoomMI(ActionEvent actionEvent) {
-        webView.setZoom(webView.getZoom() - 0.25);
-    }
+    private void subZoomMI(ActionEvent actionEvent) {webView.setZoom(webView.getZoom() - 0.25);}
 
     @FXML
-    private void movieSearchMI(ActionEvent actionEvent) {
-        engine.load("https://www.allmovie.com/search/all/" + movieInfoTextField.getText());
-    }
+    private void movieSearchMI(ActionEvent actionEvent) {engine.load("https://www.allmovie.com/search/all/" + movieInfoTextField.getText());}
 
     @FXML
-    private void homeMI(ActionEvent actionEvent) {
-        engine.load("https://www.allmovie.com");
-    }
+    private void homeMI(ActionEvent actionEvent) {engine.load("https://www.allmovie.com");}
 
     @FXML
-    private void refreshMI(ActionEvent actionEvent) {
-        engine.reload();
-    }
+    private void refreshMI(ActionEvent actionEvent) {engine.reload();}
 
     @FXML
-    private void forwardMI(ActionEvent actionEvent) {
-        engine.getHistory().go(1);
-    }
+    private void forwardMI(ActionEvent actionEvent) {engine.getHistory().go(1);}
 
     @FXML
-    private void backMI(ActionEvent actionEvent) {
-        engine.getHistory().go(-1);
-    }
-
-    @FXML
-    private void refreshTV(ActionEvent actionEvent) {
-        setTV();
-    }
+    private void backMI(ActionEvent actionEvent) {engine.getHistory().go(-1);}
 
     @FXML
     private void rateMovie(ActionEvent actionEvent) throws IOException, NullPointerException{
@@ -260,7 +255,6 @@ public class MainController implements Initializable {
         int selectedMovieID = selectedMovie.getId();
         float selectedMovieRating = selectedMovie.getRating();
         String selectedMovieTitle= selectedMovie.getName();
-
 
         FXMLLoader loader =  new FXMLLoader(getClass().getResource("/gui/view/RateMovieWindow.fxml"));
         Parent root = loader.load();
@@ -274,8 +268,6 @@ public class MainController implements Initializable {
         stage.setTitle("Rate Movie!");
         stage.setScene(scene);
         stage.show();
-
-
     }
 
     /**
@@ -326,19 +318,10 @@ public class MainController implements Initializable {
         }
     }
 
-    private void setTV() {
-        movieTV.setItems(model.getObsMovies());
-        model.loadMovieList();
-
-
-    }
-
-
     /**
      * Method to show a warning when the application is launched. It warns the user about unopened movies for 2 years
      * and with ratings lower than 6, and suggests to delete them
      */
-
     public void moviesToDelete() {
         ArrayList<String> moviesToDelete = new ArrayList<>();
         for (Movie m : movieTV.getItems()) {

@@ -31,6 +31,12 @@ public class RateMovieWindowController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         filterTF();
     }
+
+    /**
+     * We fetch all the information needed from the Maincontrollers' instance of the model.
+     * Using the ID of that movie we update the rating to the new user designated number.
+     * If that number is less than 11 we return an error.
+     */
     private void updateReview(){
         float ratingTFinput = Float.parseFloat(ratingTextField.getText());
 
@@ -46,6 +52,10 @@ public class RateMovieWindowController implements Initializable {
         }
     }
 
+    /**
+     * Simple text filter for the user input to allow only numbers.
+     * TO DO: Fix so that it will allow the user to input to allow a float. In the given state it only allows whole numbers.
+     */
     private void filterTF(){
         ratingTextField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue.matches("\\d*")) {
@@ -60,9 +70,7 @@ public class RateMovieWindowController implements Initializable {
 
     public void setMovieRatingRE(float selectedMovieRating) {this.rating = selectedMovieRating;}
     public void setModelRating(Model model) {this.model = model;}
-    public void setMovieTitleRE(String selectedMovieTitle) {this.title = selectedMovieTitle;
-        setRateMovieLabel();
-    }
+    public void setMovieTitleRE(String selectedMovieTitle) {this.title = selectedMovieTitle;setRateMovieLabel();}
 
     private void setRateMovieLabel(){rateMovieLabel.setText("Rate " + title + "!");}
 

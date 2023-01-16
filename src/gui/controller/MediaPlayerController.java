@@ -75,7 +75,6 @@ public class MediaPlayerController implements Initializable {
         columnIDMP.setCellValueFactory(new PropertyValueFactory<>("id"));
         columnTitleMP.setCellValueFactory(new PropertyValueFactory<>("name"));
 
-
         movieTVMP.getSelectionModel().selectedItemProperty().addListener((observableValue, oldUser, selectedUser) -> {
             String name = movieTVMP.getSelectionModel().getSelectedItem().getFileLink();
             String s1 = name.substring(name.indexOf("moviesLocalFolder"));
@@ -88,12 +87,9 @@ public class MediaPlayerController implements Initializable {
             mediaViewWindow.setMediaPlayer(mediaPlayer);
             settingsAssurance();
         });
-
         tableFilterMP();
         playbackSpeed();
         volume();
-
-
     }
 
     public void setTVMP(){
@@ -230,7 +226,6 @@ public class MediaPlayerController implements Initializable {
 
     /**
      * Method to update lastview when a movie is opened in media player*/
-
     public void updateLastview(int id){
         model.lastviewUpdate(id);
     }
