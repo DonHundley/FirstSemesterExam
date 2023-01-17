@@ -113,8 +113,9 @@ public class MainController implements Initializable {
         columnIMDBRating.setCellValueFactory(new PropertyValueFactory<>("IMDBRating"));
 
         tableFilter();
-        webViewIMDB();
         movieInformation();
+        movieTV.getSelectionModel().selectFirst();
+        webViewIMDB();
         moviesToDelete();
     }
 
@@ -190,6 +191,8 @@ public class MainController implements Initializable {
      *
      * There are a lot more things that could be implemented with the API and some functions could be automated with this information.
      * More information on using the API can be found here https://developers.themoviedb.org/3/getting-started/introduction.
+     *
+     * If the user selects a movie that has 0 results from TMDB, an index out of bounds error will occur.
      */
     private void movieInformation(){
         movieTV.getSelectionModel().selectedItemProperty().addListener(
@@ -223,7 +226,8 @@ public class MainController implements Initializable {
                                 backdropImage.imageProperty().setValue(new Image(imagePath+r.getBackdrop_path()));
                             }
                             conn.disconnect();
-                        } catch (IOException e) {e.printStackTrace();}
+                        }
+                        catch (IOException | IndexOutOfBoundsException e) {e.printStackTrace();}
                 });
     }
 

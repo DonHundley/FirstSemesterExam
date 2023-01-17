@@ -46,10 +46,10 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <ImageView fx:id="backdropImage" fitHeight="637.0" fitWidth="1271.0" layoutX="-589.0" layoutY="-58.0" mouseTransparent="true" opacity="0.51" pickOnBounds="true" preserveRatio="true" />
-                        <Label layoutX="332.0" layoutY="108.0" mouseTransparent="true" prefHeight="49.0" prefWidth="104.0" text="Rating:" textFill="#20bee1">
+                        <ImageView fx:id="backdropImage" fitHeight="645.0" fitWidth="901.0" layoutX="-219.0" layoutY="-66.0" mouseTransparent="true" opacity="0.51" pickOnBounds="true" preserveRatio="true" />
+                        <Label layoutX="333.0" layoutY="232.0" mouseTransparent="true" prefHeight="49.0" prefWidth="104.0" style="-fx-background-color: black;" text="Rating:" textFill="#20bee1">
                            <font>
-                              <Font size="24.0" />
+                              <Font size="18.0" />
                            </font>
                         </Label>
                         <Label fx:id="lblTitle" alignment="CENTER" contentDisplay="CENTER" layoutX="6.0" layoutY="48.0" prefHeight="49.0" prefWidth="679.0" textAlignment="CENTER" textFill="#20bee1">
@@ -57,12 +57,12 @@
                               <Font size="33.0" />
                            </font>
                         </Label>
-                        <Label fx:id="ratingTMDB" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="530.0" layoutY="114.0" mouseTransparent="true" prefHeight="49.0" prefWidth="150.0" textAlignment="RIGHT" textFill="#20bee1">
+                        <Label fx:id="ratingTMDB" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="417.0" layoutY="232.0" mouseTransparent="true" prefHeight="49.0" prefWidth="256.0" style="-fx-background-color: black;" textAlignment="RIGHT" textFill="#20bee1">
                            <font>
-                              <Font size="24.0" />
+                              <Font size="18.0" />
                            </font>
                         </Label>
-                        <Label layoutX="332.0" layoutY="319.0" mouseTransparent="true" text="Movie Description" textFill="#20bee1">
+                        <Label layoutX="332.0" layoutY="319.0" mouseTransparent="true" prefHeight="27.0" prefWidth="355.0" style="-fx-background-color: black;" text="Movie Description" textFill="#20bee1">
                            <font>
                               <Font size="18.0" />
                            </font>
@@ -72,17 +72,17 @@
                               <Image url="@../../images/tmdb.png" />
                            </image>
                         </ImageView>
-                        <Label layoutX="332.0" layoutY="163.0" mouseTransparent="true" prefHeight="49.0" prefWidth="127.0" text="Released:" textFill="#20bee1">
+                        <Label layoutX="333.0" layoutY="270.0" mouseTransparent="true" prefHeight="49.0" prefWidth="127.0" style="-fx-background-color: black;" text="Released:" textFill="#20bee1">
                            <font>
-                              <Font size="24.0" />
+                              <Font size="18.0" />
                            </font>
                         </Label>
-                        <Label fx:id="releaseDateTMDB" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="441.0" layoutY="163.0" mouseTransparent="true" prefHeight="49.0" prefWidth="239.0" textAlignment="RIGHT" textFill="#20bee1">
+                        <Label fx:id="releaseDateTMDB" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="436.0" layoutY="270.0" mouseTransparent="true" prefHeight="49.0" prefWidth="239.0" style="-fx-background-color: black;" textAlignment="RIGHT" textFill="#20bee1">
                            <font>
-                              <Font size="24.0" />
+                              <Font size="18.0" />
                            </font>
                         </Label>
-                        <Label fx:id="descriptionText" alignment="TOP_LEFT" layoutX="333.0" layoutY="346.0" mouseTransparent="true" prefHeight="222.0" prefWidth="338.0" textFill="#20bee1" wrapText="true">
+                        <Label fx:id="descriptionText" alignment="TOP_LEFT" layoutX="333.0" layoutY="346.0" mouseTransparent="true" prefHeight="222.0" prefWidth="338.0" style="-fx-background-color: black;" textFill="#20bee1" wrapText="true">
                            <font>
                               <Font size="14.0" />
                            </font>
