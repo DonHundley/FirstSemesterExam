@@ -61,13 +61,6 @@ public class MovieDAO {
         ArrayList<Movie> allMovies = new ArrayList<>();
         try(Connection connection = databaseConnector.getConnection()){
             String sql = "SELECT * FROM CatMovie JOIN Movie ON CatMovie.MovieID = Movie.MovieID JOIN Category ON CatMovie.CategoryID = Category.CategoryID ORDER BY Movie.MovieID";
-
-            /*
-            1, spiderman, horror
-            1, spiderman, crime
-            2, shawshank, comedy
-             */
-
             Statement statement = connection.createStatement();
 
             if(statement.execute(sql)) {
@@ -84,8 +77,6 @@ public class MovieDAO {
                     String catName = resultSet.getString("CategoryName");
 
                     Category categoriesForMovie = new Category(categoryID, catName);
-
-
                     Movie movie = new Movie(id, name, rating, fileLink, lastView, IMDBRating);
 
                    if (lastMovie.getId() == id){ // SAME MOVIE AS LAST
@@ -97,7 +88,6 @@ public class MovieDAO {
                     movie.getCategories().add(categoriesForMovie);
 
                     lastMovie = movie;
-
                 }
             }
         } catch (SQLServerException e) {
@@ -143,7 +133,6 @@ public class MovieDAO {
 
         try (Connection conn = databaseConnector.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
-
 
             pstmt.setFloat(1, rating);
             pstmt.setInt(2, id);
