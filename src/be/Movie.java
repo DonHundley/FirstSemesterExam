@@ -2,7 +2,6 @@ package be;
 
 import javafx.beans.property.SimpleStringProperty;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -19,7 +18,12 @@ public class Movie {
     private List<Category> categories;
 
     public String getCategoriesAsString(){
-        return categories.toString();
+        String ctg = new String();
+        for (Category category: categories)
+        {
+            ctg = ctg + category.getName() +", ";
+        }
+        return ctg;
     }
 
     public List<Category> getCategories() {
