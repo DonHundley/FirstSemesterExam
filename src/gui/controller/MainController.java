@@ -59,7 +59,6 @@ import java.util.ResourceBundle;
 public class MainController implements Initializable {
 
 
-
     @FXML
     private ImageView imgPoster, backdropImage;
     @FXML
@@ -138,7 +137,7 @@ public class MainController implements Initializable {
                 }
 
                 String searchKeyword = newValue.toLowerCase();
-
+                    //|| Movie.getIMDBRating() == Float.parseFloat(searchKeyword)
                 if (Movie.toString().toLowerCase().contains(searchKeyword)) {
                     return true; //This means we found a match.
                 } else
@@ -169,6 +168,8 @@ public class MainController implements Initializable {
 
         movieTV.getSelectionModel().selectedItemProperty().addListener(
                 (observableValue, oldUser, selectedUser) -> {
+
+
                     if (selectedUser == null){
                         engine.load("https://www.allmovie.com");
                     }
@@ -178,14 +179,15 @@ public class MainController implements Initializable {
                 });
     }
 
-    private void movieInformation(){
+    private void movieInformation() {
         movieTV.getSelectionModel().selectedItemProperty().addListener(
                 (observableValue, oldUser, selectedUser) -> {
-                        try {
-                            String imagePath="https://image.tmdb.org/t/p/original/";
+                    try {
+                        String imagePath = "https://image.tmdb.org/t/p/original/";
+                        if(selectedUser!=null) {
                             String uri =
                                     "https://api.themoviedb.org/3/search/movie?api_key=b576033e42ffbda195c7a11b2a406a10&language=en-US&query="
-                                            + selectedUser.getName().replace(" ","+") +
+                                            + selectedUser.getName().replace(" ", "+") +
                                             "&page=1&include_adult=false";
 
                             URL url = new URL(uri);
@@ -197,21 +199,23 @@ public class MainController implements Initializable {
                                 throw new RuntimeException("Failed : HTTP error code :"
                                         + conn.getResponseCode());
                             }
-                            try(Reader reader = new BufferedReader(new InputStreamReader(
-                                    (conn.getInputStream())))){
+                            try (Reader reader = new BufferedReader(new InputStreamReader(
+                                    (conn.getInputStream())))) {
                                 Gson gson = new GsonBuilder().create();
                                 TMDB p = gson.fromJson(reader, TMDB.class);
                                 Result r = p.getResults().get(0);
                                 lblTitle.setText(r.getTitle());
-                                imgPoster.imageProperty().setValue(new Image(imagePath+r.getPoster_path()));
+                                imgPoster.imageProperty().setValue(new Image(imagePath + r.getPoster_path()));
                                 ratingTMDB.setText(r.getVote_average().toString());
                                 descriptionText.setText(r.getOverview());
                                 releaseDateTMDB.setText(r.getRelease_date());
-                                backdropImage.imageProperty().setValue(new Image(imagePath+r.getBackdrop_path()));
+                                backdropImage.imageProperty().setValue(new Image(imagePath + r.getBackdrop_path()));
                             }
                             conn.disconnect();
-                        }
-                        catch (IOException | IndexOutOfBoundsException e) {e.printStackTrace();}
+                        }} catch (IOException | IndexOutOfBoundsException e) {
+                        e.printStackTrace();
+                    }
+                    if(selectedUser!=null){
                     MovieInfo movieInfo = model.getTMDBResult(selectedUser);
                     lblTitle.setText(movieInfo.getTitle());
                     imgPoster.imageProperty().setValue(movieInfo.getPoster());
@@ -220,39 +224,53 @@ public class MainController implements Initializable {
                     releaseDateTMDB.setText(movieInfo.getReleaseDate());
                     backdropImage.imageProperty().setValue(movieInfo.getBackdropImage());
 
-                });
+                }});
     }
 
 
     @FXML
-    private void addZoomMI(ActionEvent actionEvent) {webView.setZoom(webView.getZoom() + 0.25);}
+    private void addZoomMI(ActionEvent actionEvent) {
+        webView.setZoom(webView.getZoom() + 0.25);
+    }
 
     @FXML
-    private void subZoomMI(ActionEvent actionEvent) {webView.setZoom(webView.getZoom() - 0.25);}
+    private void subZoomMI(ActionEvent actionEvent) {
+        webView.setZoom(webView.getZoom() - 0.25);
+    }
 
     @FXML
-    private void movieSearchMI(ActionEvent actionEvent) {engine.load("https://www.allmovie.com/search/all/" + movieInfoTextField.getText());}
+    private void movieSearchMI(ActionEvent actionEvent) {
+        engine.load("https://www.allmovie.com/search/all/" + movieInfoTextField.getText());
+    }
 
     @FXML
-    private void homeMI(ActionEvent actionEvent) {engine.load("https://www.allmovie.com");}
+    private void homeMI(ActionEvent actionEvent) {
+        engine.load("https://www.allmovie.com");
+    }
 
     @FXML
-    private void refreshMI(ActionEvent actionEvent) {engine.reload();}
+    private void refreshMI(ActionEvent actionEvent) {
+        engine.reload();
+    }
 
     @FXML
-    private void forwardMI(ActionEvent actionEvent) {engine.getHistory().go(1);}
+    private void forwardMI(ActionEvent actionEvent) {
+        engine.getHistory().go(1);
+    }
 
     @FXML
-    private void backMI(ActionEvent actionEvent) {engine.getHistory().go(-1);}
+    private void backMI(ActionEvent actionEvent) {
+        engine.getHistory().go(-1);
+    }
 
     @FXML
-    private void rateMovie(ActionEvent actionEvent) throws IOException, NullPointerException{
+    private void rateMovie(ActionEvent actionEvent) throws IOException, NullPointerException {
         Movie selectedMovie = movieTV.getSelectionModel().getSelectedItem();
         int selectedMovieID = selectedMovie.getId();
         float selectedMovieRating = selectedMovie.getRating();
-        String selectedMovieTitle= selectedMovie.getName();
+        String selectedMovieTitle = selectedMovie.getName();
 
-        FXMLLoader loader =  new FXMLLoader(getClass().getResource("/gui/view/RateMovieWindow.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/view/RateMovieWindow.fxml"));
         Parent root = loader.load();
         RateMovieWindowController controller = loader.getController();
         controller.setModelRating(model);
@@ -270,7 +288,7 @@ public class MainController implements Initializable {
      * opens a new window to add a new movie
      */
     public void openNewMovieWindow(ActionEvent actionEvent) throws IOException {
-        FXMLLoader loader =  new FXMLLoader(getClass().getResource("/gui/view/NewMovieWindow.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/view/NewMovieWindow.fxml"));
         Parent root = loader.load();
         NewMovieWindowController controller = loader.getController();
         controller.setModel(model);
@@ -302,7 +320,7 @@ public class MainController implements Initializable {
 
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Delete confirmation");
-        alert.setHeaderText("Do you really want to DELETE "+selectedMovie.getName()+"?");
+        alert.setHeaderText("Do you really want to DELETE " + selectedMovie.getName() + "?");
 
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK) { //... user chose OK
@@ -346,10 +364,10 @@ public class MainController implements Initializable {
     public void openManageCategoryWindow(ActionEvent actionEvent) throws IOException {
         Movie selectedMovie = movieTV.getSelectionModel().getSelectedItem();
         int selectedMovieID = selectedMovie.getId();
-        String selectedMovieTitle= selectedMovie.getName();
+        String selectedMovieTitle = selectedMovie.getName();
 
 
-        FXMLLoader loader =  new FXMLLoader(getClass().getResource("/gui/view/ManageCategoryWindow.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/view/ManageCategoryWindow.fxml"));
         Parent root = loader.load();
         ManageCategoryWindowController manageCategoryWindowController = loader.getController();
         manageCategoryWindowController.setModel(model);

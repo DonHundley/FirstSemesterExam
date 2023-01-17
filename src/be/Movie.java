@@ -100,6 +100,7 @@ public class Movie {
                 ", fileLink='" + fileLink + '\'' +
                 ", lastView='" + lastView + '\'' +
                 ", IMDBRating='" + IMDBRating + '\'' +
+                ", Categories='" + categories + '\'' +
                 '}';
 
     }
