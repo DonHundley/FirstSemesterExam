@@ -57,17 +57,32 @@ public class TMDBDAO {
                     (conn.getInputStream())))){
                 Gson gson = new GsonBuilder().create();
                 TMDB p = gson.fromJson(reader, TMDB.class);
-                Result r = p.getResults().get(0); // We are fetching the very first result in our list of search results that comes from our selected name and using that data to fill our result class. This does not always provide a perfect match.
-                MovieInfo mi = new MovieInfo(
-                        r.getTitle(),
-                        new Image(imagePath+r.getPoster_path()),
-                        r.getVote_average().toString(),
-                        r.getOverview(),
-                        r.getRelease_date(),
-                        new Image(imagePath+r.getBackdrop_path()));
 
-                conn.disconnect();
-                return mi;
+                if (p.getTotal_results() > 1) {
+                    Result r = p.getResults().get(0); // We are fetching the very first result in our list of search results that comes from our selected name and using that data to fill our result class. This does not always provide a perfect match.
+                    MovieInfo mi = new MovieInfo(
+                            r.getTitle(),
+                            new Image(imagePath + r.getPoster_path()),
+                            r.getVote_average().toString(),
+                            r.getOverview(),
+                            r.getRelease_date(),
+                            new Image(imagePath + r.getBackdrop_path()));
+
+                    conn.disconnect();
+                    return mi;
+                }
+                else {
+
+                    MovieInfo miError = new MovieInfo(
+                            "Movie not found.",
+                            new Image("images/cantfinderror.png"),
+                            "",
+                            "The movie or film you have selected does not match a title in TMDb and as such has no information to display.",
+                            "",
+                            new Image("images/errorbackdrop.png"));
+                    conn.disconnect();
+                    return miError;
+                }
             }
         }
         catch (IOException | IndexOutOfBoundsException e) {e.printStackTrace();}
