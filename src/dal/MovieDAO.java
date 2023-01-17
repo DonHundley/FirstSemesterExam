@@ -59,14 +59,20 @@ public class MovieDAO {
 
     public List<Movie> getAllMovies() {
         ArrayList<Movie> allMovies = new ArrayList<>();
-        ArrayList<Category> allMovieCategories = new ArrayList<>();
         try(Connection connection = databaseConnector.getConnection()){
-            String sql = "SELECT * FROM CatMovie JOIN Movie ON CatMovie.MovieID = Movie.MovieID JOIN Category ON CatMovie.CategoryID = Category.CategoryID";
+            String sql = "SELECT * FROM CatMovie JOIN Movie ON CatMovie.MovieID = Movie.MovieID JOIN Category ON CatMovie.CategoryID = Category.CategoryID ORDER BY Movie.MovieID";
+
+            /*
+            1, spiderman, horror
+            1, spiderman, crime
+            2, shawshank, comedy
+             */
 
             Statement statement = connection.createStatement();
 
             if(statement.execute(sql)) {
                 ResultSet resultSet = statement.getResultSet();
+                Movie lastMovie = new Movie(-1,"DUMMY",0,"", null, 0);
                 while(resultSet.next()) {
                     int id = resultSet.getInt("MovieID");
                     String name = resultSet.getString("Name");
@@ -77,22 +83,21 @@ public class MovieDAO {
                     int categoryID = resultSet.getInt("CategoryID");
                     String catName = resultSet.getString("CategoryName");
 
-
-
-
                     Category categoriesForMovie = new Category(categoryID, catName);
-                    allMovieCategories.add(categoriesForMovie);
+
 
                     Movie movie = new Movie(id, name, rating, fileLink, lastView, IMDBRating);
-                    movie.getCategories().add(categoriesForMovie);
-                    //movie.getCategories().addAll(allMovieCategories);
-                    //System.out.println(categoriesForMovie);
-                    //for (Movie m: allMovies
-                    //     ) {if (!allMovies.contains(m.getId()))
 
-                    //}
-                    //allMovies.get(1).getCategories().addAll(allMovieCategories);
-                    allMovies.add(movie);
+                   if (lastMovie.getId() == id){ // SAME MOVIE AS LAST
+                        movie = lastMovie;
+                    }
+                    else{ // NEW MOVIE NEEDS TO BE CREATED
+                        allMovies.add(movie);
+                    }
+                    movie.getCategories().add(categoriesForMovie);
+
+                    lastMovie = movie;
+
                 }
             }
         } catch (SQLServerException e) {

@@ -1,12 +1,13 @@
 package bll;
 
-import be.CatMovie;
 import be.Category;
 import be.Movie;
+import be.MovieInfo;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 import dal.CatMovieDAO;
 import dal.CategoryDAO;
 import dal.MovieDAO;
+import dal.TMDBDAO;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -19,6 +20,8 @@ public class LogicManager {
     private CategoryDAO categoryDAO = new CategoryDAO();
 
     private CatMovieDAO catMovieDAO = new CatMovieDAO();
+
+    private TMDBDAO tmdb = new TMDBDAO();
 
 
     public Movie addMovie(Movie m) throws SQLServerException {
@@ -51,5 +54,8 @@ public class LogicManager {
         catMovieDAO.addCatToMovie(category.getId(), movie.getId());
     }
 
+    public MovieInfo getTMDBResult(Movie selectedUser) {
+        return tmdb.getResult(selectedUser);
+    }
 }
 

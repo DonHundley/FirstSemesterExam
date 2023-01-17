@@ -3,6 +3,7 @@ package gui.model;
 import be.CatMovie;
 import be.Category;
 import be.Movie;
+import be.MovieInfo;
 import bll.LogicManager;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 import javafx.collections.FXCollections;
@@ -77,4 +78,7 @@ public class Model {
         bll.addCatToMovie(category, movie);
     }
 
+    public MovieInfo getTMDBResult(Movie selectedUser) {
+        return bll.getTMDBResult(selectedUser);
+    }
 }
