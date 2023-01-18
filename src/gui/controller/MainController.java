@@ -104,7 +104,6 @@ public class MainController implements Initializable {
         movieTV.setItems(model.getObsMovies());
         model.loadMovieList();
 
-
         columnID.setCellValueFactory(new PropertyValueFactory<>("id"));
         columnCategories.setCellValueFactory(new PropertyValueFactory<>("categoriesAsString"));
         columnTitle.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -117,8 +116,6 @@ public class MainController implements Initializable {
         movieTV.getSelectionModel().selectFirst();
         webViewIMDB();
         moviesToDelete();
-
-
 
         movieTV.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue == null){
@@ -140,7 +137,6 @@ public class MainController implements Initializable {
      *
      * This will compare our ratings and return a result that is greater than or equal to the input.
      * If the input is not a number this will return an error which we are catching and returning as a message to system out.
-     * This solution causes lag, if we do not find a better solution ask Jeppe.
      */
     private void tableFilter() {
         FilteredList<Movie> filteredData = new FilteredList<>(model.getObsMovies(), b -> true);
@@ -226,32 +222,24 @@ public class MainController implements Initializable {
     private void addZoomMI(ActionEvent actionEvent) {
         webView.setZoom(webView.getZoom() + 0.25);
     }
-
     @FXML
     private void subZoomMI(ActionEvent actionEvent) {
         webView.setZoom(webView.getZoom() - 0.25);
     }
-
     @FXML
-    private void movieSearchMI(ActionEvent actionEvent) {
-        engine.load("https://www.allmovie.com/search/all/" + movieInfoTextField.getText());
-    }
-
+    private void movieSearchMI(ActionEvent actionEvent) {engine.load("https://www.allmovie.com/search/all/" + movieInfoTextField.getText());}
     @FXML
     private void homeMI(ActionEvent actionEvent) {
         engine.load("https://www.allmovie.com");
     }
-
     @FXML
     private void refreshMI(ActionEvent actionEvent) {
         engine.reload();
     }
-
     @FXML
     private void forwardMI(ActionEvent actionEvent) {
         engine.getHistory().go(1);
     }
-
     @FXML
     private void backMI(ActionEvent actionEvent) {
         engine.getHistory().go(-1);
@@ -359,7 +347,6 @@ public class MainController implements Initializable {
         Movie selectedMovie = movieTV.getSelectionModel().getSelectedItem();
         int selectedMovieID = selectedMovie.getId();
         String selectedMovieTitle = selectedMovie.getName();
-
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/view/ManageCategoryWindow.fxml"));
         Parent root = loader.load();

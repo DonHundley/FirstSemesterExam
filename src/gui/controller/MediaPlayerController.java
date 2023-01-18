@@ -65,9 +65,6 @@ public class MediaPlayerController implements Initializable {
     private Model model = new Model();
 
 
-
-
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 

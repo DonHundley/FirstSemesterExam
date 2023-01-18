@@ -2,6 +2,9 @@ package be;
 
 import javafx.scene.image.Image;
 
+/**
+ * Class created with Jeppe. The intention of this class is to take our results and only bring what we intend to use to our main controller.
+ */
 public class MovieInfo {
     private String title;
     private Image poster;

@@ -32,8 +32,7 @@ public class ManageCategoryWindowController implements Initializable {
     @FXML
     private ComboBox<Category> categoryComboBox;
 
-    public void initialize(URL location, ResourceBundle resources) {
-    }
+    public void initialize(URL location, ResourceBundle resources) {}
 
     /**
      * method to add a new category (user input)  to the combobox and database, checks that input is not empty and category doesn't already exist
@@ -45,7 +44,6 @@ public class ManageCategoryWindowController implements Initializable {
             model.addCategory(addCategoryTextField.getText());
         }
         addCategoryTextField.clear();
-
     }
 
     /**

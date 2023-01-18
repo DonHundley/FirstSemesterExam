@@ -21,20 +21,13 @@ public class TMDBDAO {
 
     /**
      * This method is how we are fetching the data from TMDB to be displayed. Some of this code is reused from the example given by Jeppe.
-     * It was not fully functional and only displayed the title.
      *
      * My additions:
      * This method takes our focused movie from the table view and immediately searches for it, replacing spaces in the title with +, otherwise the website would fail the search.
-     * next we collect the information from TMDB and give it structure using our BE classes to be used for our needs.
      * We fetch the movie poster, the movie title, the user voted average rating from TMDB, their description of the movie, the release date, and finally we use the backdrop image from them as well.
      * The images require a very specific path. This was outlined on TMDBs website. The original code from Jeppe had the beginnings of this, but it did not function.
-     * Using the example given by the website I found that there are only certain resolutions you can request.
-     * However, if you request the original as I did in the image path it will give you that instead of your specified resolution and this image will scale to your specified window size.
-     *
      * There are a lot more things that could be implemented with the API and some functions could be automated with this information.
      * More information on using the API can be found here https://developers.themoviedb.org/3/getting-started/introduction.
-     *
-     * If the user selects a movie that has 0 results from TMDB, an index out of bounds error will occur.
      */
 
     public MovieInfo getResult(Movie selectedUser) {
@@ -72,7 +65,6 @@ public class TMDBDAO {
                     return mi;
                 }
                 else {
-
                     MovieInfo miError = new MovieInfo(
                             "Movie not found.",
                             new Image("images/cantfinderror.png"),
