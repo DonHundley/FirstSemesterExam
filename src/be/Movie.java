@@ -21,8 +21,9 @@ public class Movie {
         String ctg = new String();
         for (Category category: categories)
         {
-            ctg = ctg + category.getName() +", ";
+            ctg = ctg +  category.getName() +" ";
         }
+        ctg = ctg.replace("Category ", "");
         return ctg;
     }
 
