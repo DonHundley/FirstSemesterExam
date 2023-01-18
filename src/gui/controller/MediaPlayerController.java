@@ -24,7 +24,8 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class MediaPlayerController implements Initializable {
-
+    @FXML
+    private Label errorLabelMP;
     @FXML
     private ImageView volumeIcon, playIcon;
     @FXML
@@ -74,18 +75,20 @@ public class MediaPlayerController implements Initializable {
 
         columnIDMP.setCellValueFactory(new PropertyValueFactory<>("id"));
         columnTitleMP.setCellValueFactory(new PropertyValueFactory<>("name"));
-
+        errorLabelMP.setText("Please select a video.");
         movieTVMP.getSelectionModel().selectedItemProperty().addListener((observableValue, oldUser, selectedUser) -> {
-            String name = movieTVMP.getSelectionModel().getSelectedItem().getFileLink();
-            String s1 = name.substring(name.indexOf("moviesLocalFolder"));
-            File movie = new File(s1);
 
-            //System.out.println(movie);
-            //System.out.println(movieTVMP.getSelectionModel().getSelectedItem().getFileLink());
-            media = new Media(movie.toURI().toString());
-            mediaPlayer = new MediaPlayer(media);
-            mediaViewWindow.setMediaPlayer(mediaPlayer);
-            settingsAssurance();
+            try {
+                String name = movieTVMP.getSelectionModel().getSelectedItem().getFileLink();
+                String s1 = name.substring(name.indexOf("moviesLocalFolder"));
+                errorLabelMP.setText("");
+                File movie = new File(s1);
+                media = new Media(movie.toURI().toString());
+                mediaPlayer = new MediaPlayer(media);
+                mediaViewWindow.setMediaPlayer(mediaPlayer);
+                settingsAssurance();
+
+            }catch (StringIndexOutOfBoundsException e){errorLabelMP.setText("Error: The video selected either does not exist or the filepath is incorrect.");}
         });
         tableFilterMP();
         playbackSpeed();
