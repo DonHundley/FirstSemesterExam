@@ -24,9 +24,9 @@
          </font>
       </Label>
       <TextField fx:id="filterTextField" layoutX="81.0" layoutY="30.0" prefHeight="26.0" prefWidth="204.0" promptText="Enter Title, Rating, or Category..." />
-      <Button fx:id="addMovieButton" layoutX="367.0" layoutY="609.0" mnemonicParsing="false" onAction="#openNewMovieWindow" text="Add" />
-      <Button fx:id="deleteMovieButton" layoutX="421.0" layoutY="609.0" mnemonicParsing="false" onAction="#openDeleteConfirmationWindow" text="Delete" />
-      <Button fx:id="rateMovieButton" layoutX="5.0" layoutY="609.0" mnemonicParsing="false" onAction="#rateMovie" text="Rate Movie!" />
+      <Button fx:id="addMovieButton" layoutX="420.0" layoutY="609.0" mnemonicParsing="false" onAction="#openNewMovieWindow" prefHeight="30.0" prefWidth="80.0" text="Add" />
+      <Button fx:id="deleteMovieButton" layoutX="507.0" layoutY="609.0" mnemonicParsing="false" onAction="#openDeleteConfirmationWindow" prefHeight="30.0" prefWidth="80.0" text="Delete" />
+      <Button fx:id="rateMovieButton" layoutX="5.0" layoutY="609.0" mnemonicParsing="false" onAction="#rateMovie" prefHeight="30.0" prefWidth="120.0" text="Rate Movie!" />
       <TableView fx:id="movieTV" layoutX="5.0" layoutY="69.0" prefHeight="534.0" prefWidth="576.0">
         <columns>
           <TableColumn fx:id="columnID" prefWidth="36.0" text="#" />
@@ -38,15 +38,15 @@
         </columns>
       </TableView>
       <Line endX="11.0" endY="-56.0" layoutX="579.0" layoutY="57.0" startX="11.0" startY="588.0" />
-      <Button fx:id="mediaPlayerButton" layoutX="222.0" layoutY="609.0" mnemonicParsing="false" onAction="#launchMediaPlayer" prefHeight="30.0" prefWidth="127.0" text="Go to MediaPlayer" />
-      <Button fx:id="manageCategory" layoutX="91.0" layoutY="609.0" mnemonicParsing="false" onAction="#openManageCategoryWindow" text="Manage Category" />
+      <Button fx:id="mediaPlayerButton" layoutX="275.0" layoutY="609.0" mnemonicParsing="false" onAction="#launchMediaPlayer" prefHeight="30.0" prefWidth="120.0" text="Go to MediaPlayer" />
+      <Button fx:id="manageCategory" layoutX="132.0" layoutY="609.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#openManageCategoryWindow" prefHeight="30.0" prefWidth="120.0" text="Manage Category" />
       <TabPane layoutX="591.0" prefHeight="645.0" prefWidth="688.0" style="-fx-background-color: black; -fx-border-color: #20bee1;" tabClosingPolicy="UNAVAILABLE">
         <tabs>
           <Tab closable="false" text="Movie Information">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <ImageView fx:id="backdropImage" fitHeight="645.0" fitWidth="901.0" layoutX="-219.0" layoutY="-66.0" mouseTransparent="true" opacity="0.51" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fx:id="backdropImage" fitHeight="645.0" fitWidth="901.0" layoutX="-216.0" layoutY="-66.0" mouseTransparent="true" opacity="0.51" pickOnBounds="true" preserveRatio="true" />
                         <Label layoutX="333.0" layoutY="232.0" mouseTransparent="true" prefHeight="49.0" prefWidth="104.0" style="-fx-background-color: black;" text="Rating:" textFill="#20bee1">
                            <font>
                               <Font size="18.0" />
