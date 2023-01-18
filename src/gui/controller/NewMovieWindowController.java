@@ -49,7 +49,7 @@ public class NewMovieWindowController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
+        newMovieSaveButton.setDisable(true);
     }
 
     /**
@@ -62,7 +62,7 @@ public class NewMovieWindowController implements Initializable {
 
         Path movefrom = FileSystems.getDefault().getPath(file.getPath());
         Path target = FileSystems.getDefault().getPath("moviesLocalFolder/"+file.getName());
-        try{Files.move(movefrom,target, StandardCopyOption.ATOMIC_MOVE);}catch (IOException e){}
+        try{Files.move(movefrom,target, StandardCopyOption.ATOMIC_MOVE); newMovieSaveButton.setDisable(false);}catch (IOException e){}
 
         selectedFile = target.toString();
         fileInput.setText(file.getName());

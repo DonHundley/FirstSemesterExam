@@ -39,17 +39,16 @@ public class RateMovieWindowController implements Initializable {
      */
     private void updateReview(){
         float ratingTFinput = Float.parseFloat(ratingTextField.getText());
+            if (ratingTFinput < 11){
+                rating = ratingTFinput;
+                model.addUserReview(rating, id);
+                model.loadMovieList();
+                Stage stage = (Stage) myRatingSaveButton.getScene().getWindow();
+                stage.close();
+            } else {
+                errorLabel.setText("Please choose a number 1-10");
+            }
 
-        if (ratingTFinput < 11){
-            rating = ratingTFinput;
-            model.addUserReview(rating, id);
-            model.loadMovieList();
-            Stage stage = (Stage) myRatingSaveButton.getScene().getWindow();
-            stage.close();
-        }
-        else{
-            errorLabel.setText("Please choose a number 1-10");
-        }
     }
 
     /**
@@ -75,7 +74,12 @@ public class RateMovieWindowController implements Initializable {
     private void setRateMovieLabel(){rateMovieLabel.setText("Rate " + title + "!");}
 
     @FXML
-    private void saveMyRatingWindow(ActionEvent actionEvent) {updateReview();}
+    private void saveMyRatingWindow(ActionEvent actionEvent) {
+        try {
+            updateReview();
+        }
+        catch (RuntimeException e){System.out.println("User did not input a value");}
+    }
     @FXML
     private void closeMyRatingWindow(ActionEvent actionEvent) {
         Stage stage = (Stage) myRatingCancelButton.getScene().getWindow();

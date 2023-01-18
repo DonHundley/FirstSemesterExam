@@ -6,14 +6,14 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controller.ManageCategoryWindowController">
+<AnchorPane prefHeight="212.0" prefWidth="402.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controller.ManageCategoryWindowController">
    <children>
-      <ComboBox fx:id="categoryComboBox" layoutX="257.0" layoutY="36.0" prefWidth="150.0" />
-      <TextField fx:id="addCategoryTextField" layoutX="258.0" layoutY="158.0" />
-      <Button layoutX="428.0" layoutY="158.0" mnemonicParsing="false" onAction="#addCategoryButton" text="Add category to selection" />
-      <Button layoutX="430.0" layoutY="68.0" mnemonicParsing="false" onAction="#deleteCategory" text="Delete selected category" />
-      <Button layoutX="428.0" layoutY="36.0" mnemonicParsing="false" onAction="#addCatToMovie" text="Assign category to movie" />
-      <Label fx:id="setMovieLabel" layoutX="258.0" layoutY="6.0" text="Label" />
+      <ComboBox fx:id="categoryComboBox" layoutX="27.0" layoutY="37.0" prefWidth="150.0" promptText="Choose Category" />
+      <TextField fx:id="addCategoryTextField" layoutX="28.0" layoutY="147.0" promptText="Category Name..." />
+      <Button layoutX="234.0" layoutY="144.0" mnemonicParsing="false" onAction="#addCategoryButton" prefHeight="30.0" prefWidth="160.0" text="Add category to selection" />
+      <Button layoutX="234.0" layoutY="75.0" mnemonicParsing="false" onAction="#deleteCategory" prefHeight="30.0" prefWidth="160.0" text="Delete selected category" />
+      <Button layoutX="234.0" layoutY="34.0" mnemonicParsing="false" onAction="#addCatToMovie" prefHeight="30.0" prefWidth="160.0" text="Assign category to movie" />
+      <Label fx:id="setMovieLabel" alignment="CENTER" layoutX="16.0" layoutY="14.0" prefHeight="17.0" prefWidth="377.0" text="Label" textAlignment="CENTER" />
       <Label fx:id="assignCategorySuccess" layoutX="258.0" layoutY="105.0" />
    </children>
 </AnchorPane>
