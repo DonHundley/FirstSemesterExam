@@ -66,7 +66,7 @@ public class MainController implements Initializable {
 
     @FXML
     private Button addZoomMIButton, subZoomMIButton, movieSearchMIButton, homeMIButton, refreshMIButton,
-            forwardMIButton, backMIButton, addMovieButton, deleteMovieButton, mediaPlayerButton, rateMovieButton, refreshTVButton;
+            forwardMIButton, backMIButton, addMovieButton, deleteMovieButton, mediaPlayerButton, rateMovieButton, refreshTVButton, manageCategory;
 
     @FXML
     private TableColumn<Movie, Integer> columnID;
@@ -117,6 +117,21 @@ public class MainController implements Initializable {
         movieTV.getSelectionModel().selectFirst();
         webViewIMDB();
         moviesToDelete();
+
+
+
+        movieTV.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue == null){
+                deleteMovieButton.setDisable(true);
+                rateMovieButton.setDisable(true);
+                manageCategory.setDisable(true);
+            }
+            else{
+                deleteMovieButton.setDisable(false);
+                rateMovieButton.setDisable(false);
+                manageCategory.setDisable(false);
+            }
+        });
     }
 
     /**
