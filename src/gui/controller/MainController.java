@@ -122,8 +122,10 @@ public class MainController implements Initializable {
     /**
      * This takes our table view text input and compares it to the data in the table view.
      * If there is a match with the user search, it will display those matches.
-     * <p>
-     * TO DO: Allow for search of a rating + all ratings above that rating.
+     *
+     * This will compare our ratings and return a result that is greater than or equal to the input.
+     * If the input is not a number this will return an error which we are catching and returning as a message to system out.
+     * This solution causes lag, if we do not find a better solution ask Jeppe.
      */
     private void tableFilter() {
         FilteredList<Movie> filteredData = new FilteredList<>(model.getObsMovies(), b -> true);
@@ -137,14 +139,22 @@ public class MainController implements Initializable {
                 }
 
                 String searchKeyword = newValue.toLowerCase();
-                    //|| Movie.getIMDBRating() == Float.parseFloat(searchKeyword)
-                if (Movie.toString().toLowerCase().contains(searchKeyword)) {
-                    return true; //This means we found a match.
-                } else
-                    return false;
+                try {
+                    if (Movie.getName().toLowerCase().contains(searchKeyword)) {
+                        return true; //This means we found a match.
+                    } else if (Movie.getCategoriesAsString().toLowerCase().contains(searchKeyword)) {
+                        return true;
+                    } else if (Movie.getRating() >= Float.parseFloat(searchKeyword)) {
+                        return true;
+                    } else if (Movie.getIMDBRating() >= Float.parseFloat(searchKeyword)) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }catch (NumberFormatException e){System.out.println(("NumberFormat Exception: This is given because the search text field is not a number."));}
+                return false;
             });
-
-        });
+            });
 
         SortedList<Movie> sortedData = new SortedList<>(filteredData);
 
@@ -154,6 +164,9 @@ public class MainController implements Initializable {
         // Apply filtered and sorted data to the Tableview.
         movieTV.setItems(sortedData);
     }
+
+
+
 
     /**
      * This method is used to set up our webview.
@@ -182,39 +195,6 @@ public class MainController implements Initializable {
     private void movieInformation() {
         movieTV.getSelectionModel().selectedItemProperty().addListener(
                 (observableValue, oldUser, selectedUser) -> {
-                    try {
-                        String imagePath = "https://image.tmdb.org/t/p/original/";
-                        if(selectedUser!=null) {
-                            String uri =
-                                    "https://api.themoviedb.org/3/search/movie?api_key=b576033e42ffbda195c7a11b2a406a10&language=en-US&query="
-                                            + selectedUser.getName().replace(" ", "+") +
-                                            "&page=1&include_adult=false";
-
-                            URL url = new URL(uri);
-                            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                            conn.setRequestMethod("GET");
-                            conn.setRequestProperty("Accept", "application/json");
-
-                            if (conn.getResponseCode() != 200) {
-                                throw new RuntimeException("Failed : HTTP error code :"
-                                        + conn.getResponseCode());
-                            }
-                            try (Reader reader = new BufferedReader(new InputStreamReader(
-                                    (conn.getInputStream())))) {
-                                Gson gson = new GsonBuilder().create();
-                                TMDB p = gson.fromJson(reader, TMDB.class);
-                                Result r = p.getResults().get(0);
-                                lblTitle.setText(r.getTitle());
-                                imgPoster.imageProperty().setValue(new Image(imagePath + r.getPoster_path()));
-                                ratingTMDB.setText(r.getVote_average().toString());
-                                descriptionText.setText(r.getOverview());
-                                releaseDateTMDB.setText(r.getRelease_date());
-                                backdropImage.imageProperty().setValue(new Image(imagePath + r.getBackdrop_path()));
-                            }
-                            conn.disconnect();
-                        }} catch (IOException | IndexOutOfBoundsException e) {
-                        e.printStackTrace();
-                    }
                     if(selectedUser!=null){
                     MovieInfo movieInfo = model.getTMDBResult(selectedUser);
                     lblTitle.setText(movieInfo.getTitle());
@@ -223,7 +203,6 @@ public class MainController implements Initializable {
                     descriptionText.setText(movieInfo.getDescription());
                     releaseDateTMDB.setText(movieInfo.getReleaseDate());
                     backdropImage.imageProperty().setValue(movieInfo.getBackdropImage());
-
                 }});
     }
 
