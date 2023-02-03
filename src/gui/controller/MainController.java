@@ -336,7 +336,7 @@ public class MainController implements Initializable {
         alert.setContentText(String.valueOf(moviesToDelete));
         Optional<ButtonType> result = alert.showAndWait();
         alert.getContentText();
-        if (result.get() == ButtonType.CLOSE) {
+        if (result.isPresent() && result.get() == ButtonType.CLOSE) {
             alert.close();
         }
 
